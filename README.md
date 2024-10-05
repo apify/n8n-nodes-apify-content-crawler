@@ -1,46 +1,79 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+# n8n-nodes-apify
 
-# n8n-nodes-starter
+This is an n8n community node. It lets you use apify  in your n8n workflows.
 
-This repo contains example nodes to help you get started building your own custom integrations for [n8n](n8n.io). It includes the node linter and other dependencies.
+Apify is the platform where developers build, deploy, and publish
+web scraping, data extraction, and web automation tools.
 
-To make your custom node available to the community, you must create it as an npm package, and [submit it to the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
+[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
-## Prerequisites
+[Installation](#installation)  
+[Operations](#operations)  
+[Credentials](#credentials)  <!-- delete if no auth needed -->  
+[Compatibility](#compatibility)  
+[Usage](#usage)  <!-- delete if not using this section -->  
+[Resources](#resources)  
+[Version history](#version-history)  <!-- delete if not using this section -->  
 
-You need the following installed on your development machine:
+## Installation
 
-* [git](https://git-scm.com/downloads)
-* Node.js and pnpm. Minimum version Node 18. You can find instructions on how to install both using nvm (Node Version Manager) for Linux, Mac, and WSL [here](https://github.com/nvm-sh/nvm). For Windows users, refer to Microsoft's guide to [Install NodeJS on Windows](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
-* Install n8n with:
-  ```
-  pnpm install n8n -g
-  ```
-* Recommended: follow n8n's guide to [set up your development environment](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/).
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
-## Using this starter
+# Screenshots
 
-These are the basic steps for working with the starter. For detailed guidance on creating and publishing nodes, refer to the [documentation](https://docs.n8n.io/integrations/creating-nodes/).
+![](./docs/Screenshot%202024-10-06%20at%2001.54.44.png)
 
-1. [Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template repository.
-2. Clone your new repo:
-   ```
-   git clone https://github.com/<your organization>/<your-repo-name>.git
-   ```
-3. Run `pnpm i` to install dependencies.
-4. Open the project in your editor.
-5. Browse the examples in `/nodes` and `/credentials`. Modify the examples, or replace them with your own nodes.
-6. Update the `package.json` to match your details.
-7. Run `pnpm lint` to check for errors or `pnpm lintfix` to automatically fix errors when possible.
-8. Test your node locally. Refer to [Run your node locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for guidance.
-9. Replace this README with documentation for your node. Use the [README_TEMPLATE](README_TEMPLATE.md) to get started.
-10. Update the LICENSE file to use your details.
-11. [Publish](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry) your package to npm.
+![](./docs/Screenshot%202024-10-06%20at%2002.02.34.png)
 
-## More information
+![](./docs//Screenshot%202024-10-06%20at%2002.04.16.png)
 
-Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/creating-nodes/) for detailed information on building your own nodes.
+## Operations
 
-## License
+The node supports the following operations:
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+- Actors/Actor collection
+- Actors/Actor object
+- Actors/Run collection
+- Actors/Run actor synchronously
+- Actors/Run Actor synchronously and get dataset items
+- Actors/Run object
+- Actors/Abort run
+- Actors/Metamorph run
+- Actors/Resurrect run
+- Actors/Last run object and its storages
+- Actor tasks/Task collection
+- Actor tasks/Task object
+- Actor tasks/Task input object
+- Actor tasks/Run collection
+- Actor tasks/Run task synchronously
+- Actor tasks/Run task synchronously and get dataset items
+- Actor tasks/Last run object and its storages
+- Datasets
+- Datasets/Dataset collection
+- Datasets/Dataset
+- Datasets/Item collection
+
+## Credentials
+
+The node supports the API Key authentication method `apifyApi` that is required to authenticate with the Apify API.
+
+## Compatibility
+
+Tested against n8n version 1.57.0.
+
+## Usage
+
+1. Create a new actor on Apify.
+2. Create a new workflow in n8n.
+3. Add the Apify node to your workflow.
+4. Enter your API key and actor ID.
+5. Select the operation you want to perform.
+6. Execute the node.
+
+## Resources
+
+* [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+* [Apify documentation](https://apify.com/docs/)
+
+
+
