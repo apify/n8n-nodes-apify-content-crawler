@@ -40,7 +40,7 @@ export const properties: INodeProperties[] = [
     name: 'actId',
     type: 'string',
     default: 'asADASadYvn4mBZmm',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -64,7 +64,7 @@ export const properties: INodeProperties[] = [
     name: 'name',
     type: 'string',
     default: 'my-task',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -87,7 +87,7 @@ export const properties: INodeProperties[] = [
     name: 'options',
     type: 'string',
     default: '',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -110,7 +110,7 @@ export const properties: INodeProperties[] = [
     name: 'input',
     type: 'string',
     default: '',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {

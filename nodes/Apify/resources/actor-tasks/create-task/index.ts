@@ -28,7 +28,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Create task',
   action: 'Create task',
   description:
-    'Create a new task with settings specified by the object passed as JSON in the POST payload  The response is the full task object as returned by the  Get task    reference tasks task object get task  endpoint  The request needs to specify the  Content Type  application json  HTTP header  When providing your API authentication token  we recommend using the request s  Authorization  header  rather than the URL    More info    introduction authentication',
+    'Create a new task with settings specified by the object passed as JSON in the POST payload  The response is the full task object as returned by the Get task endpoint  The request needs to specify the Content Type  application json HTTP header  When providing your API authentication token  we recommend using the request s Authorization header  rather than the URL   More info',
   routing: {
     request: {
       method: 'POST',

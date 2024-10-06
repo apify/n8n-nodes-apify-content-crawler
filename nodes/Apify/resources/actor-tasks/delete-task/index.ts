@@ -27,7 +27,7 @@ const rawOption: INodePropertyOptions = {
   name: 'Delete task',
   value: 'Delete task',
   action: 'Delete task',
-  description: 'Delete the task specified through the  actorTaskId  parameter',
+  description: 'Delete the task specified through the actorTaskId parameter',
   routing: {
     request: {
       method: 'DELETE',

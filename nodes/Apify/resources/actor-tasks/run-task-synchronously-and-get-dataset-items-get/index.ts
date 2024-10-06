@@ -28,7 +28,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Run task synchronously and get dataset items (GET)',
   action: 'Run task synchronously and get dataset items (GET)',
   description:
-    'Run a specific task and return its dataset items  The run must finish in 300     MAX ACTOR JOB SYNC WAIT SECS     seconds otherwise the HTTP request fails with a timeout error  this won t abort the run itself   You can send all the same options in parameters as the  Get Dataset Items    reference datasets item collection get items  API endpoint  Beware that it might be impossible to maintain an idle HTTP connection for an extended period  due to client timeout or network conditions  Make sure your HTTP client is configured to have a long enough connection timeout  If the connection breaks  you will not receive any information about the run and its status  To run the Task asynchronously  use the  Run task asynchronously    reference actor tasks run collection run task  endpoint instead',
+    'Run a specific task and return its dataset items  The run must finish in 300 seconds otherwise the HTTP request fails with a timeout error  this won t abort the run itself   You can send all the same options in parameters as the Get Dataset Items API endpoint  Beware that it might be impossible to maintain an idle HTTP connection for an extended period  due to client timeout or network conditions  Make sure your HTTP client is configured to have a long enough connection timeout  If the connection breaks  you will not receive any information about the run and its status  To run the Task asynchronously  use the Run task asynchronously endpoint instead',
   routing: {
     request: {
       method: 'GET',

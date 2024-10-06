@@ -55,7 +55,7 @@ export const properties: INodeProperties[] = [
     name: 'name',
     type: 'string',
     default: 'MyActor',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -78,7 +78,7 @@ export const properties: INodeProperties[] = [
     name: 'description',
     type: 'string',
     default: 'My favourite actor!',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -102,7 +102,7 @@ export const properties: INodeProperties[] = [
     name: 'isPublic',
     type: 'boolean',
     default: false,
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -125,7 +125,7 @@ export const properties: INodeProperties[] = [
     name: 'seoTitle',
     type: 'string',
     default: 'My actor',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -148,7 +148,7 @@ export const properties: INodeProperties[] = [
     name: 'seoDescription',
     type: 'string',
     default: 'My actor is the best',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -171,7 +171,7 @@ export const properties: INodeProperties[] = [
     name: 'title',
     type: 'string',
     default: 'My Actor',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -194,7 +194,7 @@ export const properties: INodeProperties[] = [
     name: 'restartOnError',
     type: 'boolean',
     default: false,
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -315,7 +315,7 @@ export const properties: INodeProperties[] = [
     name: 'defaultRunOptions',
     type: 'string',
     default: '',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {

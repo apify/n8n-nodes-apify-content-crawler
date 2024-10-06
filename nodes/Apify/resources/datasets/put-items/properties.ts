@@ -53,7 +53,7 @@ export const properties: INodeProperties[] = [
     name: 'body',
     type: 'fixedCollection',
     default: {},
-    description: undefined,
+    description: '',
     options: [
       {
         displayName: 'Items',

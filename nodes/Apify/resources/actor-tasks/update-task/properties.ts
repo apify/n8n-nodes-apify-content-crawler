@@ -55,7 +55,7 @@ export const properties: INodeProperties[] = [
     name: 'id',
     type: 'string',
     default: 'ZxLNxrRaZrSjuhT9y',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -79,7 +79,7 @@ export const properties: INodeProperties[] = [
     name: 'userId',
     type: 'string',
     default: 'BPWZBd7Z9c746JAnF',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -103,7 +103,7 @@ export const properties: INodeProperties[] = [
     name: 'actId',
     type: 'string',
     default: 'asADASadYvn4mBZmm',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -127,7 +127,7 @@ export const properties: INodeProperties[] = [
     name: 'name',
     type: 'string',
     default: 'my-task',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -150,7 +150,7 @@ export const properties: INodeProperties[] = [
     name: 'username',
     type: 'string',
     default: 'janedoe',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -174,7 +174,7 @@ export const properties: INodeProperties[] = [
     name: 'createdAt',
     type: 'string',
     default: '2018-10-26T07:23:14.855Z',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -198,7 +198,7 @@ export const properties: INodeProperties[] = [
     name: 'modifiedAt',
     type: 'string',
     default: '2018-10-26T13:30:49.578Z',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -221,7 +221,7 @@ export const properties: INodeProperties[] = [
     name: 'removedAt',
     type: 'string',
     default: '',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -244,7 +244,7 @@ export const properties: INodeProperties[] = [
     name: 'stats',
     type: 'string',
     default: '',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -267,7 +267,7 @@ export const properties: INodeProperties[] = [
     name: 'options',
     type: 'string',
     default: '',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
@@ -290,7 +290,7 @@ export const properties: INodeProperties[] = [
     name: 'input',
     type: 'string',
     default: '',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {

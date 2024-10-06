@@ -28,7 +28,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Get dataset',
   action: 'Get dataset',
   description:
-    'Returns dataset object for given dataset ID    NOTE    Keep in mind that attributes  itemCount  and  cleanItemCount  are not propagated right away after data are pushed into a dataset  There is a short period  up to 5 seconds  during which these counters may not match with exact counts in dataset items',
+    'Returns dataset object for given dataset ID  NOTE  Keep in mind that attributes itemCount and cleanItemCount are not propagated right away after data are pushed into a dataset  There is a short period  up to 5 seconds  during which these counters may not match with exact counts in dataset items',
   routing: {
     request: {
       method: 'GET',

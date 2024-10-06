@@ -28,7 +28,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Get run',
   action: 'Get run',
   description:
-    'DEPRECATED    API endpoints related to run of the Actor were moved under new namespace   actor runs     reference actor runs     DEPRECATED    API endpoints related to run of the Actor were moved under new namespace   actor runs     reference actor runs   Gets an object that contains all the details about a specific run of an Actor  By passing the optional  waitForFinish  parameter the API endpoint will synchronously wait for the run to finish  This is useful to avoid periodic polling when waiting for Actor run to complete  This endpoint does not require the authentication token  Instead  calls are authenticated using a hard to guess ID of the run  However  if you access the endpoint without the token  certain attributes  such as  usageUsd  and  usageTotalUsd   will be hidden',
+    'DEPRECATED  API endpoints related to run of the Actor were moved under new namespace actor runs  DEPRECATED  API endpoints related to run of the Actor were moved under new namespace actor runs  Gets an object that contains all the details about a specific run of an Actor  By passing the optional waitForFinish parameter the API endpoint will synchronously wait for the run to finish  This is useful to avoid periodic polling when waiting for Actor run to complete  This endpoint does not require the authentication token  Instead  calls are authenticated using a hard to guess ID of the run  However  if you access the endpoint without the token  certain attributes  such as usageUsd and usageTotalUsd  will be hidden',
   routing: {
     request: {
       method: 'GET',

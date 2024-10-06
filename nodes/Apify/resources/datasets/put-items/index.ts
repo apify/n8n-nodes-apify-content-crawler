@@ -28,7 +28,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Put items',
   action: 'Put items',
   description:
-    'Appends an item or an array of items to the end of the dataset  The POST payload is a JSON object or a JSON array of objects to save into the dataset    IMPORTANT    The limit of request payload size for the dataset is 5 MB  If the array exceeds the size  you ll need to split it into a number of smaller arrays',
+    'Appends an item or an array of items to the end of the dataset  The POST payload is a JSON object or a JSON array of objects to save into the dataset  IMPORTANT  The limit of request payload size for the dataset is 5 MB  If the array exceeds the size  you ll need to split it into a number of smaller arrays',
   routing: {
     request: {
       method: 'POST',

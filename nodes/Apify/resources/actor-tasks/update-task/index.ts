@@ -28,7 +28,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Update task',
   action: 'Update task',
   description:
-    'Update settings of a task using values specified by an object passed as JSON in the POST payload  If the object does not define a specific property  its value is not updated  The response is the full task object as returned by the  Get task    reference tasks task object get task  endpoint  The request needs to specify the  Content Type  application json  HTTP header  When providing your API authentication token  we recommend using the request s  Authorization  header  rather than the URL    More info    introduction authentication',
+    'Update settings of a task using values specified by an object passed as JSON in the POST payload  If the object does not define a specific property  its value is not updated  The response is the full task object as returned by the Get task endpoint  The request needs to specify the Content Type  application json HTTP header  When providing your API authentication token  we recommend using the request s Authorization header  rather than the URL   More info',
   routing: {
     request: {
       method: 'PUT',

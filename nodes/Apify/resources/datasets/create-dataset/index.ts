@@ -28,7 +28,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Create dataset',
   action: 'Create dataset',
   description:
-    'Creates a dataset and returns its object  Keep in mind that data stored under unnamed dataset follows  data retention period  https   docs apify com platform storage data retention   It creates a dataset with the given name if the parameter name is used  If a dataset with the given name already exists then returns its object',
+    'Creates a dataset and returns its object  Keep in mind that data stored under unnamed dataset follows data retention period  It creates a dataset with the given name if the parameter name is used  If a dataset with the given name already exists then returns its object',
   routing: {
     request: {
       method: 'POST',

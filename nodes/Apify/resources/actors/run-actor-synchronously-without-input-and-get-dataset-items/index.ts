@@ -29,7 +29,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Run actor synchronously without input and get dataset items',
   action: 'Run actor synchronously without input and get dataset items',
   description:
-    'Runs a specific actor and returns its dataset items  The run must finish in 300     MAX ACTOR JOB SYNC WAIT SECS     seconds otherwise the API endpoint returns a timeout error  The actor is not passed any input  It allows to send all possible options in parameters from  Get Dataset Items    reference datasets item collection get items  API endpoint  Beware that it might be impossible to maintain an idle HTTP connection for a long period of time  due to client timeout or network conditions  Make sure your HTTP client is configured to have a long enough connection timeout  If the connection breaks  you will not receive any information about the run and its status  To run the Actor asynchronously  use the  Run Actor    reference actors run collection run actor  API endpoint instead',
+    'Runs a specific actor and returns its dataset items  The run must finish in 300 seconds otherwise the API endpoint returns a timeout error  The actor is not passed any input  It allows to send all possible options in parameters from Get Dataset Items API endpoint  Beware that it might be impossible to maintain an idle HTTP connection for a long period of time  due to client timeout or network conditions  Make sure your HTTP client is configured to have a long enough connection timeout  If the connection breaks  you will not receive any information about the run and its status  To run the Actor asynchronously  use the Run Actor API endpoint instead',
   routing: {
     request: {
       method: 'GET',

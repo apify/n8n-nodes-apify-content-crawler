@@ -28,7 +28,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Abort run',
   action: 'Abort run',
   description:
-    'DEPRECATED    API endpoints related to run of the Actor were moved under new namespace   actor runs     reference actor runs  Aborts an Actor run and returns an object that contains all the details about the run  Only runs that are starting or running are aborted  For runs with status  FINISHED    FAILED    ABORTING  and  TIMED OUT  this call does nothing',
+    'DEPRECATED  API endpoints related to run of the Actor were moved under new namespace actor runs Aborts an Actor run and returns an object that contains all the details about the run  Only runs that are starting or running are aborted  For runs with status FINISHED  FAILED  ABORTING and TIMED OUT this call does nothing',
   routing: {
     request: {
       method: 'POST',

@@ -28,7 +28,7 @@ const rawOption: INodePropertyOptions = {
   value: 'Resurrect run',
   action: 'Resurrect run',
   description:
-    'DEPRECATED    API endpoints related to run of the Actor were moved under new namespace   actor runs     reference actor runs  Resurrects a finished Actor run and returns an object that contains all the details about the resurrected run  Only finished runs  i e  runs with status  FINISHED    FAILED    ABORTED  and  TIMED OUT  can be resurrected  Run status will be updated to RUNNING and its container will be restarted with the same storages  the same behaviour as when the run gets migrated to the new server   For more information  see the  Actor docs  https   docs apify com platform actors running runs and builds resurrection of finished run',
+    'DEPRECATED  API endpoints related to run of the Actor were moved under new namespace actor runs Resurrects a finished Actor run and returns an object that contains all the details about the resurrected run  Only finished runs  i e  runs with status FINISHED  FAILED  ABORTED and TIMED OUT can be resurrected  Run status will be updated to RUNNING and its container will be restarted with the same storages  the same behaviour as when the run gets migrated to the new server   For more information  see the Actor docs',
   routing: {
     request: {
       method: 'POST',

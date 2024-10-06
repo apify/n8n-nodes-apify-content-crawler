@@ -54,7 +54,7 @@ export const properties: INodeProperties[] = [
     name: 'name',
     type: 'string',
     default: '',
-    description: undefined,
+    description: '',
     routing: {
       request: {
         body: {
