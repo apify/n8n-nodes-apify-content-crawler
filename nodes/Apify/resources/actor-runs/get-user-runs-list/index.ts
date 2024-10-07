@@ -21,18 +21,18 @@ import * as helpers from '../../../helpers'
 import { properties as rawProperties } from './properties'
 import { runHooks } from './hooks'
 
-export const name = 'Abort run'
+export const name = 'Get user runs list'
 
 const rawOption: INodePropertyOptions = {
-  name: 'Abort run',
-  value: 'Abort run',
-  action: 'Abort run',
+  name: 'Get user runs list',
+  value: 'Get user runs list',
+  action: 'Get user runs list',
   description:
-    'DEPRECATED  API endpoints related to run of the Actor were moved under new namespace actor runs Aborts an Actor run and returns an object that contains all the details about the run  Only runs that are starting or running are aborted  For runs with status FINISHED  FAILED  ABORTING and TIMED OUT this call does nothing',
+    'Gets a list of all runs for a user  The response is a list of objects  where each object contains basic information about a single actor run  The endpoint supports pagination using the limit and offset parameters and it will not return more than 1000 array elements  By default  the records are sorted by the startedAt field in ascending order  Therefore  you can use pagination to incrementally fetch all records while new ones are still being created  To sort the records in descending order  use desc 1 parameter  You can also filter runs by status  available statuses',
   routing: {
     request: {
-      method: 'POST',
-      url: '=/v2/acts/{{$parameter["actorId"]}}/runs/{{$parameter["runId"]}}/abort',
+      method: 'GET',
+      url: '=/v2/actor-runs',
     },
   },
 }

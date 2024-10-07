@@ -23,6 +23,7 @@ import { runHooks } from './hooks'
 
 import * as actors from './actors'
 import * as actorTasks from './actor-tasks'
+import * as actorRuns from './actor-runs'
 import * as datasets from './datasets'
 
 const authenticationProperties: INodeProperties[] = []
@@ -42,6 +43,11 @@ const resourceSelect: INodeProperties[] = [
       {
         name: 'Actor tasks',
         value: 'Actor tasks',
+        description: '',
+      },
+      {
+        name: 'Actor runs',
+        value: 'Actor runs',
         description: '',
       },
       {
@@ -387,6 +393,7 @@ const rawProperties: INodeProperties[] = [
   ...resourceSelect,
   ...actors.properties,
   ...actorTasks.properties,
+  ...actorRuns.properties,
   ...datasets.properties,
   ...extraProperties,
 ]
@@ -397,6 +404,7 @@ const methods = aggregateNodeMethods([
   selfMethods,
   actors.methods,
   actorTasks.methods,
+  actorRuns.methods,
   datasets.methods,
 ])
 

@@ -20,7 +20,7 @@ import * as helpers from '../../../helpers'
 
 export const properties: INodeProperties[] = [
   {
-    displayName: 'POST /v2/acts/{actorId}/runs/{runId}/abort',
+    displayName: 'GET /v2/actor-runs/{runId}',
     name: 'operation',
     type: 'notice',
     typeOptions: {
@@ -29,23 +29,8 @@ export const properties: INodeProperties[] = [
     default: '',
     displayOptions: {
       show: {
-        resource: ['Actors'],
-        operation: ['Abort run'],
-      },
-    },
-  },
-  {
-    displayName: 'Actor Id',
-    name: 'actorId',
-    required: true,
-    description:
-      "Actor ID or a tilde-separated owner's username and Actor name.",
-    default: 'janedoe~my-actor',
-    type: 'string',
-    displayOptions: {
-      show: {
-        resource: ['Actors'],
-        operation: ['Abort run'],
+        resource: ['Actor runs'],
+        operation: ['Get run'],
       },
     },
   },
@@ -58,29 +43,29 @@ export const properties: INodeProperties[] = [
     type: 'string',
     displayOptions: {
       show: {
-        resource: ['Actors'],
-        operation: ['Abort run'],
+        resource: ['Actor runs'],
+        operation: ['Get run'],
       },
     },
   },
   {
-    displayName: 'Gracefully',
-    name: 'gracefully',
+    displayName: 'Wait For Finish',
+    name: 'waitForFinish',
     description:
-      'If true passed, the Actor run will abort gracefully.\n                                        It will send `aborting` and `persistState` event into run and force-stop the run after 30 seconds.\n                                        It is helpful in cases where you plan to resurrect the run later.',
-    default: true,
-    type: 'boolean',
+      'The maximum number of seconds the server waits for the run to finish. By\ndefault it is `0`, the maximum value is `60`. <!--\nMAX_ACTOR_JOB_ASYNC_WAIT_SECS -->\nIf the build finishes in time then the returned run object will have a terminal status (e.g. `SUCCEEDED`),\notherwise it will have a transitional status (e.g. `RUNNING`).\n',
+    default: 60,
+    type: 'number',
     routing: {
       request: {
         qs: {
-          gracefully: '={{ $value }}',
+          waitForFinish: '={{ $value }}',
         },
       },
     },
     displayOptions: {
       show: {
-        resource: ['Actors'],
-        operation: ['Abort run'],
+        resource: ['Actor runs'],
+        operation: ['Get run'],
       },
     },
   },

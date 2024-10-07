@@ -21,18 +21,18 @@ import * as helpers from '../../../helpers'
 import { properties as rawProperties } from './properties'
 import { runHooks } from './hooks'
 
-export const name = 'Resurrect run'
+export const name = 'Get run'
 
 const rawOption: INodePropertyOptions = {
-  name: 'Resurrect run',
-  value: 'Resurrect run',
-  action: 'Resurrect run',
+  name: 'Get run',
+  value: 'Get run',
+  action: 'Get run',
   description:
-    'DEPRECATED  API endpoints related to run of the Actor were moved under new namespace actor runs Resurrects a finished Actor run and returns an object that contains all the details about the resurrected run  Only finished runs  i e  runs with status FINISHED  FAILED  ABORTED and TIMED OUT can be resurrected  Run status will be updated to RUNNING and its container will be restarted with the same storages  the same behaviour as when the run gets migrated to the new server   For more information  see the Actor docs',
+    'This is not a single endpoint  but an entire group of endpoints that lets you retrieve the run or any of its default storages  The endpoints accept the same HTTP methods and query parameters as the respective storage endpoints',
   routing: {
     request: {
-      method: 'POST',
-      url: '=/v2/acts/{{$parameter["actorId"]}}/runs/{{$parameter["runId"]}}/resurrect',
+      method: 'GET',
+      url: '=/v2/actor-runs/{{$parameter["runId"]}}',
     },
   },
 }
