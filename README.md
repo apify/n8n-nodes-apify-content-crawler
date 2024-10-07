@@ -1,6 +1,6 @@
 # n8n-nodes-apify
 
-This is an n8n community node. It lets you use apify  in your n8n workflows.
+This is an n8n community node. It lets you use apify in your n8n workflows.
 
 Apify is the platform where developers build, deploy, and publish
 web scraping, data extraction, and web automation tools.
@@ -9,11 +9,11 @@ web scraping, data extraction, and web automation tools.
 
 [Installation](#installation)  
 [Operations](#operations)  
-[Credentials](#credentials)  <!-- delete if no auth needed -->  
+[Credentials](#credentials) <!-- delete if no auth needed -->  
 [Compatibility](#compatibility)  
-[Usage](#usage)  <!-- delete if not using this section -->  
+[Usage](#usage) <!-- delete if not using this section -->  
 [Resources](#resources)  
-[Version history](#version-history)  <!-- delete if not using this section -->  
+[Version history](#version-history) <!-- delete if not using this section -->
 
 ## Installation
 
@@ -22,8 +22,6 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 # Screenshots
 
 ![](./docs/Screenshot%202024-10-06%20at%2001.54.44.png)
-
-![](./docs/Screenshot%202024-10-06%20at%2002.02.34.png)
 
 ![](./docs//Screenshot%202024-10-06%20at%2002.04.16.png)
 
@@ -72,8 +70,5 @@ Tested against n8n version 1.57.0.
 
 ## Resources
 
-* [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-* [Apify documentation](https://apify.com/docs/)
-
-
-
+- [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+- [Apify documentation](https://apify.com/docs/)
