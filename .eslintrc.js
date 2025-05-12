@@ -20,6 +20,15 @@ module.exports = {
 
 	ignorePatterns: ['.eslintrc.js', '**/*.js', '**/node_modules/**', '**/dist/**'],
 
+	plugins: ['@stylistic'],
+	rules: {
+		'@stylistic/quotes': [
+			'error',
+			'single',
+			{ allowTemplateLiterals: 'always', ignoreStringLiterals: true },
+		],
+	},
+
 	overrides: [
 		{
 			files: ['package.json'],
