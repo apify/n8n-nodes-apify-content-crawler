@@ -3,7 +3,6 @@
 	"version": "0.1.0",
 	"description": "n8n nodes for Apify",
 	"keywords": [
-		"n8n-community-node-package",
 		"n8n-nodes",
 		"n8n",
 		"apify",
@@ -11,14 +10,14 @@
 		"apify-nodes"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/minhlucvan/n8n-nodes-apify",
+	"homepage": "https://github.com/apify/n8n-nodes-apify",
 	"author": {
-		"name": "Minh Luc Van",
-		"email": "luk.mink@gmail.com"
+		"name": "Apify Team",
+		"email": "integrations@apify.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/minhlucvan/n8n-nodes-apify.git"
+		"url": "https://github.com/apify/n8n-nodes-apify.git"
 	},
 	"engines": {
 		"node": ">=18.10",
