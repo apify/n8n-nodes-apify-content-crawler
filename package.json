@@ -1,6 +1,6 @@
 {
 	"name": "@apify/n8n-nodes-apify",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "n8n nodes for Apify",
 	"keywords": [
 		"n8n-nodes",
