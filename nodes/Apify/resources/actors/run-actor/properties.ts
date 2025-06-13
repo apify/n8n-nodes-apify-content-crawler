@@ -17,6 +17,18 @@ export const properties: INodeProperties[] = [
 		},
 	},
 	{
+		displayName: 'Actor Source',
+		name: 'actorSource',
+		type: 'hidden',
+		default: 'recentlyUsed',
+		displayOptions: {
+			show: {
+				resource: ['Actors'],
+				operation: ['Run actor'],
+			},
+		},
+	},
+	{
 		displayName: 'Actor',
 		name: 'actorId',
 		required: true,

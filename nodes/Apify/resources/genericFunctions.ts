@@ -6,6 +6,7 @@ import {
 	type ILoadOptionsFunctions,
 	type IRequestOptions,
 } from 'n8n-workflow';
+import { createHash } from 'node:crypto';
 
 type IApiRequestOptions = IRequestOptions & { uri?: string };
 
@@ -104,4 +105,42 @@ export async function apiRequestAllItems(
 	}
 
 	return combinedData;
+}
+
+export function getActorOrTaskId(this: IHookFunctions): string {
+	const resource = this.getNodeParameter('resource', '') as string;
+	const actorId = this.getNodeParameter('actorId', '') as { value: string };
+	const actorTaskId = this.getNodeParameter('actorTaskId', '') as { value: string };
+
+	if (resource === 'task') {
+		return actorTaskId.value;
+	}
+
+	return actorId.value;
+}
+
+export function getCondition(this: IHookFunctions, resource: string, id: string): object {
+	return resource === 'actor' ? { actorId: id } : { actorTaskId: id };
+}
+
+export function normalizeEventTypes(selected: string[]): string[] {
+	if (selected.includes('any')) {
+		return ['ACTOR.RUN.SUCCEEDED', 'ACTOR.RUN.FAILED', 'ACTOR.RUN.TIMED_OUT', 'ACTOR.RUN.ABORTED'];
+	}
+	return selected;
+}
+
+export function generateIdempotencyKey(
+	resource: string,
+	actorOrTaskId: string,
+	eventTypes: string[],
+): string {
+	const hash = createHash('sha256');
+	const sortedEventTypes = eventTypes.sort();
+	hash.update(`${resource}:${actorOrTaskId}:${sortedEventTypes.join(',')}`);
+	return hash.digest('hex');
+}
+
+export function compose(...fns: Function[]) {
+	return (x: any) => fns.reduce((v, f) => f(v), x);
 }

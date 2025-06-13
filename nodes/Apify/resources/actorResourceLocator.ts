@@ -18,17 +18,6 @@ const resourceLocatorProperty: INodeProperties = {
 				searchable: false,
 			},
 		},
-		// {
-		// 	displayName: 'From Store',
-		// 	name: 'store',
-		// 	type: 'list',
-		// 	placeholder: 'Choose from Apify Store...',
-		// 	typeOptions: {
-		// 		searchListMethod: 'listStoreActors',
-		// 		searchFilterRequired: false,
-		// 		searchable: false,
-		// 	},
-		// },
 		{
 			displayName: 'By URL',
 			name: 'url',
@@ -70,54 +59,96 @@ const resourceLocatorProperty: INodeProperties = {
 	],
 };
 
-function mapProperty(property: INodeProperties) {
+const actorSourceProperty: INodeProperties = {
+	displayName: 'Actor Source',
+	name: 'actorSource',
+	type: 'options',
+	options: [
+		{
+			name: 'Recently Used Actors',
+			value: 'recentlyUsed',
+		},
+		{
+			name: 'Apify Store Actors',
+			value: 'store',
+		},
+	],
+	default: 'recentlyUsed',
+	description: 'Choose whether to select from your recently used actors or browse the Apify Store',
+	displayOptions: { show: { resource: ['actor'] } },
+};
+
+function mapProperty(property: INodeProperties): INodeProperties {
 	return {
 		...property,
 		...resourceLocatorProperty,
 	};
 }
-export function overrideActorProperties(properties: INodeProperties[]) {
-	return properties.map((property) => {
+
+function createActorSourceProperty(displayOptions: any): INodeProperties {
+	return {
+		...actorSourceProperty,
+		displayOptions,
+	};
+}
+
+export function overrideActorProperties(properties: INodeProperties[]): INodeProperties[] {
+	const result: INodeProperties[] = [];
+
+	for (const property of properties) {
 		if (property.name === 'actorId') {
-			return mapProperty(property);
+			result.push(createActorSourceProperty(property.displayOptions));
+			result.push(mapProperty(property));
+		} else {
+			result.push(property);
 		}
-		return property;
-	});
+	}
+
+	return result;
 }
 
 export async function listActors(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-	const searchResults = await apiRequestAllItems.call(this, {
+	const actorSource = this.getNodeParameter('actorSource', 'recentlyUsed') as string;
+
+	const mapToN8nResult = (actor: any) => ({
+		name: actor.title || actor.name,
+		value: actor.id,
+		url: `https://console.com/actors/${actor.id}/input`,
+		description: actor.description || actor.name,
+	});
+
+	const {
+		data: { items: recentActors },
+	} = await apiRequestAllItems.call(this, {
 		method: 'GET',
 		uri: '/v2/acts',
 		qs: {
-			limit: 100,
+			limit: 200,
 			offset: 0,
 		},
 	});
 
-	const { data } = searchResults;
-	const { items } = data;
+	if (actorSource === 'recentlyUsed') {
+		return {
+			results: recentActors.map(mapToN8nResult),
+		};
+	}
+
+	const {
+		data: { items: storeActors },
+	} = await apiRequestAllItems.call(this, {
+		method: 'GET',
+		uri: '/v2/store',
+		qs: {
+			limit: 200,
+			offset: 0,
+		},
+	});
+
+	const recentIds = recentActors.map((actor: any) => actor.id);
+	const filtered = storeActors.filter((actor: any) => !recentIds.includes(actor.id));
 
 	return {
-		results: items.map((b: any) => ({
-			name: b.title || b.name,
-			value: b.id,
-			url: `https://console.apify.com/actors/${b.id}/input`,
-			description: b.name,
-		})),
+		results: filtered.map(mapToN8nResult),
 	};
 }
-
-// export async function listStoreActors(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-// 	const client = await getAuthedApifyClient.call(this);
-// 	const { items } = await client.store().list({ limit: 50 });
-
-// 	return {
-// 		results: items.map((b: any) => ({
-// 			name: b.title || b.name,
-// 			value: b.id,
-// 			url: `https://console.apify.com/actors/${b.id}/input`,
-// 			description: b.description || b.name,
-// 		})),
-// 	};
-// }
