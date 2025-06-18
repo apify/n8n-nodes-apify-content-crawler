@@ -88,7 +88,7 @@ export class ApifyTrigger implements INodeType {
 					{ name: 'Task', value: 'task' },
 				],
 				default: 'actor',
-				description: 'Whether to fire when an actor or a task run finishes',
+				description: 'Whether to trigger when an Actor or a task run finishes',
 			},
 			{
 				displayName: 'Actor Source',
@@ -101,7 +101,7 @@ export class ApifyTrigger implements INodeType {
 				displayName: 'Actor',
 				name: 'actorId',
 				required: true,
-				description: "Actor ID or a tilde-separated owner's username and Actor name",
+				description: 'Actor ID or a tilde-separated username and Actor name',
 				default: 'janedoe~my-actor',
 				type: 'string',
 				displayOptions: { show: { resource: ['actor'] } },
@@ -114,7 +114,7 @@ export class ApifyTrigger implements INodeType {
 				description:
 					'Apify task to monitor for runs. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 				displayOptions: { show: { resource: ['task'] } },
-				placeholder: 'Select Task to watch',
+				placeholder: 'Select task to watch',
 			},
 			{
 				displayName: 'Event Type',

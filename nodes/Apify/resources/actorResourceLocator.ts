@@ -8,7 +8,7 @@ const resourceLocatorProperty: INodeProperties = {
 	default: { mode: 'list', value: '' },
 	modes: [
 		{
-			displayName: 'From List',
+			displayName: 'From list',
 			name: 'list',
 			type: 'list',
 			placeholder: 'Choose...',
@@ -74,7 +74,7 @@ const actorSourceProperty: INodeProperties = {
 		},
 	],
 	default: 'recentlyUsed',
-	description: 'Choose whether to select from your recently used actors or browse the Apify Store',
+	description: 'Choose whether to select from your recently used Actors or browse Apify Store',
 	displayOptions: { show: { resource: ['actor'] } },
 };
 
@@ -113,7 +113,7 @@ export async function listActors(this: ILoadOptionsFunctions): Promise<INodeList
 	const mapToN8nResult = (actor: any) => ({
 		name: actor.title || actor.name,
 		value: actor.id,
-		url: `https://console.com/actors/${actor.id}/input`,
+		url: `https://console.apify.com/actors/${actor.id}/input`,
 		description: actor.description || actor.name,
 	});
 
