@@ -6,10 +6,11 @@ import { runHooks } from './hooks';
 export const scrapeSingleUrlName = 'Scrape single URL';
 
 const rawOption: INodePropertyOptions = {
-	name: scrapeSingleUrlName,
+	name: 'Scrape Single URL',
 	value: scrapeSingleUrlName,
 	action: scrapeSingleUrlName,
-	description: 'Scrape a single URL using the Apify Website Content Crawler Actor',
+	description:
+		'Scrape a single URL using the Apify Website Content Crawler Actor and get its content as text, markdown, and HTML',
 };
 
 const { properties, option } = runHooks(rawOption, rawProperties);
