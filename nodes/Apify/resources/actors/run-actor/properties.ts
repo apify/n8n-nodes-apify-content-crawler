@@ -103,13 +103,9 @@ configuration for the Actor (typically \`latest\`).`,
 		displayName: 'Wait for Finish',
 		name: 'waitForFinish',
 		description:
-			"The maximum number of seconds the server waits for the run to finish. By default the server doesn't wait for the run to finish and returns immediately. The maximum value is 60 seconds.",
-		default: null,
-		type: 'number',
-		typeOptions: {
-			minValue: 0,
-			maxValue: 60,
-		},
+			'Whether to wait for the run to finish before continuing. If true, the node will wait for the run to complete (successfully or not) before moving to the next node. Note: The maximum time the workflow will wait is limited by the workflow timeout setting in your n8n configuration.',
+		default: true,
+		type: 'boolean',
 		displayOptions: {
 			show: {
 				resource: ['Actors'],
