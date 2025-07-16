@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-	packageName: 'n8n-nodes-apify',
+	packageName: 'n8n-nodes-apify-content-crawler',
 	credentials: {
 		ApifyApi: {
 			displayName: 'Apify API key connection',

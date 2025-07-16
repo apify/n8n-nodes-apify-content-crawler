@@ -1,5 +1,5 @@
 {
-	"name": "@apify/n8n-nodes-apify",
+	"name": "@apify/n8n-nodes-apify-content-crawler",
 	"version": "0.4.6",
 	"description": "n8n nodes for Apify",
 	"keywords": [
@@ -11,14 +11,14 @@
 		"apify-nodes"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/apify/n8n-nodes-apify",
+	"homepage": "https://github.com/apify/n8n-nodes-apify-content-crawler",
 	"author": {
 		"name": "Apify Team",
 		"email": "integrations@apify.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/apify/n8n-nodes-apify.git"
+		"url": "https://github.com/apify/n8n-nodes-apify-content-crawler.git"
 	},
 	"engines": {
 		"node": ">=18.10",

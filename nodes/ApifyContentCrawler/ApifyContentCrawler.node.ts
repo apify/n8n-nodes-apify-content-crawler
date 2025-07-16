@@ -4,14 +4,14 @@ import {
 	INodeType,
 	INodeTypeDescription,
 } from 'n8n-workflow';
-import { properties } from './Apify.properties';
-import { methods } from './Apify.methods';
+import { properties } from './ApifyContentCrawler.properties';
+import { methods } from './ApifyContentCrawler.methods';
 import { resourceRouter } from './resources/router';
 
-export class Apify implements INodeType {
+export class ApifyContentCrawler implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Apify Scraper for AI Crawling',
-		name: 'apify-content-crawler',
+		name: 'apifyContentCrawler',
 		icon: 'file:apify.svg',
 		group: ['transform'],
 		version: 1,
@@ -20,8 +20,7 @@ export class Apify implements INodeType {
 			'Crawl any website and extract text content to feed AI Workflows or LLM applications.',
 		defaults: {
 			name: 'Apify Content Crawler',
-			color: "#fcba03"
-		},
+	},
 		inputs: ['main'],
 		outputs: ['main'],
 		credentials: [

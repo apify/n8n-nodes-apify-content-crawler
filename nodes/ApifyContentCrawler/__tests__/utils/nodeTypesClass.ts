@@ -6,7 +6,7 @@ import {
 	IVersionedNodeType,
 	NodeHelpers,
 } from 'n8n-workflow';
-import { Apify } from '../../Apify.node';
+import { ApifyContentCrawler } from '../../ApifyContentCrawler.node';
 
 export class NodeTypesClass implements INodeTypes {
 	nodeTypes: INodeTypeData = {};
@@ -41,6 +41,6 @@ export class NodeTypesClass implements INodeTypes {
 
 const nodeTypes = new NodeTypesClass();
 
-nodeTypes.addNode('n8n-nodes-apify.apify', new Apify());
+nodeTypes.addNode('n8n-nodes-apify-content-crawler.apify', new ApifyContentCrawler());
 
 export { nodeTypes };
