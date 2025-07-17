@@ -4,13 +4,13 @@ import {
 	INodeType,
 	INodeTypeDescription,
 } from 'n8n-workflow';
-import { properties } from './Apify.properties';
-import { methods } from './Apify.methods';
+import { properties } from './ApifyContentCrawler.properties';
+import { methods } from './ApifyContentCrawler.methods';
 import { resourceRouter } from './resources/router';
 
 export class Apify implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Apify',
+		displayName: 'Apify Content Crawler',
 		name: 'apify',
 		icon: 'file:apify.svg',
 		group: ['transform'],

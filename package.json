@@ -47,8 +47,7 @@
 			"dist/credentials/ApifyOAuth2Api.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/Apify/Apify.node.js",
-			"dist/nodes/Apify/ApifyTrigger.node.js"
+			"dist/nodes/ApifyContentCrawler/ApifyContentCrawler.node.js"
 		]
 	},
 	"devDependencies": {
