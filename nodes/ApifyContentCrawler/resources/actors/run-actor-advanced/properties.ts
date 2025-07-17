@@ -28,11 +28,11 @@ export const properties: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Consider URLs from Sitemaps',
+		displayName: 'Consider URLs From Sitemaps',
 		name: 'sitemapUrlsEnabled',
 		type: 'boolean',
 		default: false,
-		description: 'If enabled, the crawler will look for [Sitemaps](https://en.wikipedia.org/wiki/Sitemaps) at the domains of the provided *Start URLs* and enqueue matching URLs similarly as the links found on crawled pages. You can also reference a `sitemap.xml` file directly by adding it as another Start URL (e.g. `https://www.example.com/sitemap.xml`)\n\nThis feature makes the crawling more robust on websites that support Sitemaps, as it includes pages that might be not reachable from Start URLs. Note that if a page is found via a Sitemap, it will have depth 1.',
+		description: 'Whether the crawler should look for [Sitemaps](https://en.wikipedia.org/wiki/Sitemaps) at the domains of the provided *Start URLs* and enqueue matching URLs similarly to links found on crawled pages. You can also reference a `sitemap.xml` file directly by adding it as another Start URL (e.g., `https://www.example.com/sitemap.xml`). This feature makes the crawling more robust on websites that support Sitemaps, as it includes pages that might not be reachable from Start URLs. Note that if a page is found via a Sitemap, it will have depth 1.',
 		displayOptions: {
 			show: {
 				resource: ['Actors'],
@@ -47,15 +47,15 @@ export const properties: INodeProperties[] = [
 		default: 'playwright:adaptive',
 		options: [
 			{ 
-				name: 'Adaptive switching between browser and raw HTTP - Fast and renders JavaScript content if present. This is the recommended option.', 
+				name: 'Adaptive Switching Between Browser and Raw HTTP - Fast and Renders JavaScript Content if Present. This Is the Recommended Option.', 
 				value: 'playwright:adaptive' 
 			},
 			{ 
-				name: 'Headless browser (Firefox+Playwright) - Reliable, renders JavaScript content, best in avoiding blocking, but might be slow.', 
+				name: 'Headless Browser (Firefox+Playwright) - Reliable, Renders JavaScript Content, Best in Avoiding Blocking, but Might Be Slow.', 
 				value: 'playwright:firefox' 
 			},
 			{ 
-				name: "Raw HTTP client (Cheerio) - Fastest, but doesn't render JavaScript content.", 
+				name: 'Raw HTTP Client (Cheerio) - Fastest, but Doesn\'t Render JavaScript Content.', 
 				value: 'cheerio' 
 			},
 		],
@@ -75,7 +75,7 @@ export const properties: INodeProperties[] = [
 		typeOptions: {
 			minValue: 0,
 		},
-		description: 'The maximum number of links starting from the start URL that the crawler will recursively follow. The start URLs have depth `0`, the pages linked directly from the start URLs have depth `1`, and so on.\n\nThis setting is useful to prevent accidental crawler runaway. By setting it to `0`, the Actor will only crawl the Start URLs.',
+		description: 'The maximum number of links starting from the start URL that the crawler will recursively follow. The start URLs have depth `0`, the pages linked directly from the start URLs have depth `1`, and so on. This setting is useful to prevent accidental crawler runaway. By setting it to `0`, the Actor will only crawl the Start URLs.',
 		displayOptions: {
 			show: {
 				resource: ['Actors'],

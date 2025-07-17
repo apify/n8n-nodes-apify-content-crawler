@@ -34,15 +34,15 @@ export const properties: INodeProperties[] = [
 		default: 'playwright:adaptive',
 		options: [
 			{ 
-				name: 'Adaptive switching between browser and raw HTTP - Fast and renders JavaScript content if present. This is the recommended option.', 
+				name: 'Adaptive Switching Between Browser and Raw HTTP - Fast and Renders JavaScript Content if Present. This Is the Recommended Option.', 
 				value: 'playwright:adaptive' 
 			},
 			{ 
-				name: 'Headless browser (Firefox+Playwright) - Reliable, renders JavaScript content, best in avoiding blocking, but might be slow.', 
+				name: 'Headless Browser (Firefox+Playwright) - Reliable, Renders JavaScript Content, Best in Avoiding Blocking, but Might Be Slow.', 
 				value: 'playwright:firefox' 
 			},
 			{ 
-				name: "Raw HTTP client (Cheerio) - Fastest, but doesn't render JavaScript content.", 
+				name: 'Raw HTTP Client (Cheerio) - Fastest, but Doesn\'t Render JavaScript Content.', 
 				value: 'cheerio' 
 			},
 		],

@@ -9,7 +9,7 @@ const rawOption: INodePropertyOptions = {
 	name: 'Standard Settings',
 	value: 'Run Actor Standard',
 	action: 'Crawl a Website (Standard Settings)',
-	description: 'Crawl any website with our standard settings.',
+	description: 'Crawl any website with our standard settings',
 };
 
 const { properties, option } = runHooks(rawOption, rawProperties);
