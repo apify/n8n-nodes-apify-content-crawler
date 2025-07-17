@@ -9,102 +9,90 @@ export const properties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['Actors'],
-				operation: ['Run actor'],
+				operation: ['Run Actor Advanced'],
 			},
 		},
 	},
 	{
-		displayName: 'Actor',
-		name: 'actorId',
-		required: true,
-		description: 'Actor ID or a tilde-separated username and Actor name',
-		default: 'janedoe~my-actor',
+		displayName: 'Start URLs',
+		name: 'startUrls',
 		type: 'string',
+		default: 'https://docs.apify.com/academy/web-scraping-for-beginners',
+		description: 'List of URLs to start crawling from (comma-separated or JSON array)',
+		placeholder: '["https://example.com", "https://another.com"]',
 		displayOptions: {
 			show: {
 				resource: ['Actors'],
-				operation: ['Run actor'],
+				operation: ['Run Actor Advanced'],
 			},
 		},
 	},
 	{
-		displayName: 'Input JSON',
-		name: 'customBody',
-		type: 'json',
-		default: '{}',
-		description:
-			'JSON input for the Actor run, which you can find on the Actor input page in Apify Console. If empty, the run uses the input specified in the default run configuration.',
-		displayOptions: {
-			show: {
-				resource: ['Actors'],
-				operation: ['Run actor'],
-			},
-		},
-	},
-	{
-		displayName: 'Timeout',
-		name: 'timeout',
-		description: `Optional timeout for the run, in seconds. By default, the run uses a
-timeout specified in the default run configuration for the Actor.`,
-		default: null,
-		type: 'number',
-		displayOptions: {
-			show: {
-				resource: ['Actors'],
-				operation: ['Run actor'],
-			},
-		},
-	},
-	{
-		displayName: 'Memory',
-		name: 'memory',
-		description:
-			'Memory limit for the run, in megabytes. The amount of memory can be set to one of the available options. By default, the run uses a memory limit specified in the default run configuration for the Actor.',
-		default: 1024,
-		type: 'options',
-		options: [
-			{ name: '128 MB', value: 128 },
-			{ name: '256 MB', value: 256 },
-			{ name: '512 MB', value: 512 },
-			{ name: '1024 MB (1 GB)', value: 1024 },
-			{ name: '2048 MB (2 GB)', value: 2048 },
-			{ name: '4096 MB (4 GB)', value: 4096 },
-			{ name: '8192 MB (8 GB)', value: 8192 },
-			{ name: '16384 MB (16 GB)', value: 16384 },
-			{ name: '32768 MB (32 GB)', value: 32768 },
-		],
-		displayOptions: {
-			show: {
-				resource: ['Actors'],
-				operation: ['Run actor'],
-			},
-		},
-	},
-	{
-		displayName: 'Build Tag',
-		name: 'build',
-		description: `Specifies the Actor build tag to run. By default, the run uses the build specified in the default run
-configuration for the Actor (typically \`latest\`).`,
-		default: '',
-		type: 'string',
-		displayOptions: {
-			show: {
-				resource: ['Actors'],
-				operation: ['Run actor'],
-			},
-		},
-	},
-	{
-		displayName: 'Wait for Finish',
-		name: 'waitForFinish',
-		description:
-			'Whether to wait for the run to finish before continuing. If true, the node will wait for the run to complete (successfully or not) before moving to the next node. Note: The maximum time the workflow will wait is limited by the workflow timeout setting in your n8n configuration.',
-		default: true,
+		displayName: 'Consider URLs from Sitemaps',
+		name: 'sitemapUrlsEnabled',
 		type: 'boolean',
+		default: false,
+		description: 'If enabled, the crawler will look for [Sitemaps](https://en.wikipedia.org/wiki/Sitemaps) at the domains of the provided *Start URLs* and enqueue matching URLs similarly as the links found on crawled pages. You can also reference a `sitemap.xml` file directly by adding it as another Start URL (e.g. `https://www.example.com/sitemap.xml`)\n\nThis feature makes the crawling more robust on websites that support Sitemaps, as it includes pages that might be not reachable from Start URLs. Note that if a page is found via a Sitemap, it will have depth 1.',
 		displayOptions: {
 			show: {
 				resource: ['Actors'],
-				operation: ['Run actor'],
+				operation: ['Run Actor Advanced'],
+			},
+		},
+	},
+	{
+		displayName: 'Crawler Type',
+		name: 'crawlerType',
+		type: 'options',
+		default: 'playwright:adaptive',
+		options: [
+			{ 
+				name: 'Adaptive switching between browser and raw HTTP - Fast and renders JavaScript content if present. This is the recommended option.', 
+				value: 'playwright:adaptive' 
+			},
+			{ 
+				name: 'Headless browser (Firefox+Playwright) - Reliable, renders JavaScript content, best in avoiding blocking, but might be slow.', 
+				value: 'playwright:firefox' 
+			},
+			{ 
+				name: "Raw HTTP client (Cheerio) - Fastest, but doesn't render JavaScript content.", 
+				value: 'cheerio' 
+			},
+		],
+		description: 'Adaptive switching between browser and raw HTTP (default) - Fast and renders JavaScript content if present. This is the recommended option.\nHeadless web browser with Firefox and Playwright - Useful for modern websites with anti-scraping protections and JavaScript rendering. It recognizes common blocking patterns like CAPTCHAs and automatically retries blocked requests through new sessions.\nRaw HTTP client - High-performance crawling mode that uses raw HTTP requests to fetch the pages. It is faster and cheaper, but it might not work on all websites.',
+		displayOptions: {
+			show: {
+				resource: ['Actors'],
+				operation: ['Run Actor Advanced'],
+			},
+		},
+	},
+	{
+		displayName: 'Max Crawling Depth',
+		name: 'maxDepth',
+		type: 'number',
+		default: 20,
+		typeOptions: {
+			minValue: 0,
+		},
+		description: 'The maximum number of links starting from the start URL that the crawler will recursively follow. The start URLs have depth `0`, the pages linked directly from the start URLs have depth `1`, and so on.\n\nThis setting is useful to prevent accidental crawler runaway. By setting it to `0`, the Actor will only crawl the Start URLs.',
+		displayOptions: {
+			show: {
+				resource: ['Actors'],
+				operation: ['Run Actor Advanced'],
+			},
+		},
+	},
+	{
+		displayName: 'Max Pages',
+		name: 'maxPages',
+		type: 'number',
+		default: 9999,
+		description: 'The maximum number pages to crawl. It includes the start URLs, pagination pages, pages with no content, etc. The crawler will automatically finish after reaching this number. This setting is useful to prevent accidental crawler runaway.',
+		displayOptions: {
+			show: {
+				resource: ['Actors'],
+				operation: ['Run Actor Advanced'],
 			},
 		},
 	},
