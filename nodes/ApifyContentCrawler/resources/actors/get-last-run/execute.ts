@@ -4,7 +4,7 @@ import {
 	NodeApiError,
 	NodeOperationError,
 } from 'n8n-workflow';
-import { apiRequest } from '../../../resources/genericFunctions';
+import { apiRequest } from '../../genericFunctions';
 
 export async function getLastRun(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
 	const actorId = this.getNodeParameter('actorId', i) as { value: string };

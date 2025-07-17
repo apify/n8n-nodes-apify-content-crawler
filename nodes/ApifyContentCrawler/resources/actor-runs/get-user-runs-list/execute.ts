@@ -1,5 +1,5 @@
 import { IExecuteFunctions, INodeExecutionData, NodeApiError } from 'n8n-workflow';
-import { apiRequest } from '../../../resources/genericFunctions';
+import { apiRequest } from '../../genericFunctions';
 
 export async function getUserRunsList(
 	this: IExecuteFunctions,

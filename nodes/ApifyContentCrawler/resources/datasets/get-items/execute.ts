@@ -4,7 +4,7 @@ import {
 	NodeApiError,
 	NodeOperationError,
 } from 'n8n-workflow';
-import { apiRequest } from '../../../resources/genericFunctions';
+import { apiRequest } from '../../genericFunctions';
 
 export async function getItems(this: IExecuteFunctions, i: number): Promise<INodeExecutionData[]> {
 	const datasetId = this.getNodeParameter('datasetId', i) as string;

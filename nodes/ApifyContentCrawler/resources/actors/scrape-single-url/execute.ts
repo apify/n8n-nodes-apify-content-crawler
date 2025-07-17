@@ -1,5 +1,5 @@
 import { IExecuteFunctions, INodeExecutionData, NodeApiError } from 'n8n-workflow';
-import { apiRequest, pollRunStatus } from '../../../resources/genericFunctions';
+import { apiRequest, pollRunStatus } from '../../genericFunctions';
 import { consts } from '../../../helpers';
 
 export async function scrapeSingleUrl(

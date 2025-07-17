@@ -4,7 +4,7 @@ import {
 	NodeApiError,
 	NodeOperationError,
 } from 'n8n-workflow';
-import { apiRequest, pollRunStatus } from '../../../resources/genericFunctions';
+import { apiRequest, pollRunStatus } from '../../genericFunctions';
 
 export async function runTask(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
 	const actorTaskId = this.getNodeParameter('actorTaskId', i, undefined, {
