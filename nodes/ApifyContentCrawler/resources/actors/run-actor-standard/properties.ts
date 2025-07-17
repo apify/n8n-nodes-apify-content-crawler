@@ -15,17 +15,32 @@ export const properties: INodeProperties[] = [
 	},
 	{
 		displayName: 'Start URLs',
-		name: 'startUrls',
-		type: 'string',
-		default: 'https://docs.apify.com/academy/web-scraping-for-beginners',
-		description: 'List of URLs to start crawling from (comma-separated or JSON array)',
-		placeholder: '["https://example.com", "https://another.com"]',
+		name: 'entries',
+		type: 'fixedCollection',
+		typeOptions: { multipleValues: true },
 		displayOptions: {
 			show: {
 				resource: ['Actors'],
 				operation: ['Run Actor Standard'],
 			},
 		},
+		default: {
+			entry: [
+				{
+					value: 'https://docs.apify.com/academy/web-scraping-for-beginners',
+				},
+			],
+		},		description: 'One or more URLs of pages where the crawler will start. By default, the Actor will also crawl sub-pages of these URLs. For example, for start URL `https://example.com/blog`, it will crawl also `https://example.com/blog/post` or `https://example.com/blog/article`. The **Include URLs (globs)** option overrides this automation behavior.',
+		placeholder: 'Add URL',
+		options: [
+			{
+			name: 'entry',
+			displayName: 'Url',
+			values: [
+				{ displayName: 'Url', name: 'value',  type: 'string', default: '' },
+			],
+			},
+		],
 	},
 	{
 		displayName: 'Crawler Type',

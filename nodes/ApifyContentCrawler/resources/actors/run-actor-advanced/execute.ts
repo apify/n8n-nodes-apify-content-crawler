@@ -8,107 +8,64 @@ import { apiRequest, pollRunStatus } from '../../genericFunctions';
 import { ACTOR_ID } from '../../../ApifyContentCrawler.node';
 
 export async function runActor(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
-	const actorId = ACTOR_ID
-	const timeout = this.getNodeParameter('timeout', i) as number | null;
-	const memory = this.getNodeParameter('memory', i) as number | null;
-	const buildParam = this.getNodeParameter('build', i) as string | null;
-	const waitForFinish = this.getNodeParameter('waitForFinish', i) as boolean;
-	const rawStringifiedInput = this.getNodeParameter('customBody', i, '{}') as string;
+	const actorId = ACTOR_ID;
 
-	let userInput: any;
-	try {
-		userInput = rawStringifiedInput ? JSON.parse(rawStringifiedInput) : {};
-	} catch (err) {
-		throw new NodeOperationError(
-			this.getNode(),
-			`Could not parse custom body: ${rawStringifiedInput}`,
-		);
-	}
+	const waitForFinish = false;
+
+	// Get user inputs
+	const entries = this.getNodeParameter('entries', i, {}) as {
+		entry?: { value: string }[];
+	};
+	const crawlerType = this.getNodeParameter('crawlerType', i) as string;
+	const sitemapUrlsEnabled = this.getNodeParameter('sitemapUrlsEnabled', i) as boolean;
+	const maxDepth = this.getNodeParameter('maxDepth', i) as number;
+	const maxPages = this.getNodeParameter('maxPages', i) as number;
 
 	if (!actorId) {
 		throw new NodeOperationError(this.getNode(), 'Actor ID is required');
 	}
 
-	// 1. Get the actor details
-	const actor = await apiRequest.call(this, {
-		method: 'GET',
-		uri: `/v2/acts/${actorId}`,
-	});
-	if (!actor || !actor.data) {
-		throw new NodeApiError(this.getNode(), {
-			message: `Actor ${actorId} not found`,
-		});
-	}
-	const actorData = actor.data;
+	// 1. Get the default build
+	const build = await getDefaultBuild.call(this, actorId);
 
-	// 2. Build selection logic
-	let build: any;
-	if (buildParam) {
-		build = await getBuildByTag.call(this, actorId, buildParam, actorData);
-	} else {
-		build = await getDefaultBuild.call(this, actorId);
-	}
-
-	// 3. Get default input for this build
+	// 2. Get default input from build
 	const defaultInput = getDefaultInputsFromBuild(build);
 
-	// 4. Merge default input and user's input (user's input overrides)
-	const mergedInput = { ...defaultInput, ...userInput };
+	// 3. Merge with user inputs
+	const mergedInput: Record<string, any> = {
+		...defaultInput,
+		crawlerType,
+		useSitemaps: sitemapUrlsEnabled,
+		maxCrawlDepth: maxDepth,
+		maxCrawlPages: maxPages,
+	};
 
-	// 5. Prepare query string
-	const qs: Record<string, any> = {};
-	if (timeout != null) qs.timeout = timeout;
-	if (memory != null) qs.memory = memory;
-	if (build?.buildNumber) qs.build = build.buildNumber;
-	qs.waitForFinish = 0; // set initial run actor to not wait for finish
+	// Override startUrls
+	delete mergedInput.startUrls;
+	if (entries?.entry?.length) {
+		mergedInput.startUrls = entries.entry.map(e => ({
+			url: e.value,
+			method: 'GET',
+		}));
+	}
 
-	// 6. Run the actor
-	const run = await runActorApi.call(this, actorId, mergedInput, qs);
+	// 4. Run the actor
+	const run = await runActorApi.call(this, actorId, mergedInput, { waitForFinish: 0 });
 	if (!run?.data?.id) {
 		throw new NodeApiError(this.getNode(), {
 			message: `Run ID not found after running the actor`,
 		});
 	}
 
-	// 7a. If waitForFinish is false, return the run data immediately
+	// 5. Return immediately if not waiting
 	if (!waitForFinish) {
-		return {
-			json: { ...run.data },
-		};
+		return { json: { ...run.data } };
 	}
 
-	// 7b. Start polling for run status until it reaches a terminal state
-	// This loop is infinite and will only stop when a terminal status is reached,
-	// or when the workflow maximum timeout is hit, as set in your n8n configuration.
+	// (Not used now, but here for future reference)
 	const runId = run.data.id;
 	const lastRunData = await pollRunStatus.call(this, runId);
-	return {
-		json: { ...lastRunData },
-	};
-}
-
-async function getBuildByTag(
-	this: IExecuteFunctions,
-	actorId: string,
-	buildTag: string,
-	actorData: any,
-) {
-	const buildByTag = actorData.taggedBuilds && actorData.taggedBuilds[buildTag];
-	if (!buildByTag?.buildId) {
-		throw new NodeApiError(this.getNode(), {
-			message: `Build tag '${buildTag}' does not exist for actor ${actorData.title ?? actorData.name ?? actorId}`,
-		});
-	}
-	const buildResp = await apiRequest.call(this, {
-		method: 'GET',
-		uri: `/v2/actor-builds/${buildByTag.buildId}`,
-	});
-	if (!buildResp || !buildResp.data) {
-		throw new NodeApiError(this.getNode(), {
-			message: `Build with ID '${buildByTag.buildId}' not found for actor ${actorId}`,
-		});
-	}
-	return buildResp.data;
+	return { json: { ...lastRunData } };
 }
 
 async function getDefaultBuild(this: IExecuteFunctions, actorId: string) {
