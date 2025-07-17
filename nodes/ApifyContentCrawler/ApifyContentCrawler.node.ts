@@ -8,6 +8,8 @@ import { properties } from './ApifyContentCrawler.properties';
 import { methods } from './ApifyContentCrawler.methods';
 import { resourceRouter } from './resources/router';
 
+export const ACTOR_ID = "aYG0l9s7dbB7j3gbS";
+
 export class ApifyContentCrawler implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Apify Scraper for AI Crawling',

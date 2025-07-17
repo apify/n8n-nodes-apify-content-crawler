@@ -1,4 +1,4 @@
-import { ApifyContentCrawler } from '../ApifyContentCrawler.node';
+import { ACTOR_ID, ApifyContentCrawler } from '../ApifyContentCrawler.node';
 import { executeWorkflow } from './utils/executeWorkflow';
 import { CredentialsHelper } from './utils/credentialHelper';
 import { getRunTaskDataByNodeName, getTaskData } from './utils/getNodeResultData';
@@ -41,11 +41,11 @@ describe('Apify Node', () => {
 				const mockBuild = fixtures.getBuildResult();
 
 				const scope = nock('https://api.apify.com')
-					.get('/v2/acts/nFJndFXA5zjCTuudP')
+					.get(`/v2/acts/${ACTOR_ID}`)
 					.reply(200, fixtures.getActorResult())
-					.get('/v2/acts/nFJndFXA5zjCTuudP/builds/default')
+					.get(`/v2/acts/${ACTOR_ID}/builds/default`)
 					.reply(200, mockBuild)
-					.post('/v2/acts/nFJndFXA5zjCTuudP/runs')
+					.post(`/v2/acts/${ACTOR_ID}/runs`)
 					.query({ waitForFinish: 0, build: mockBuild.data.buildNumber, memory: 1024 })
 					.reply(200, mockRunActor);
 
@@ -73,11 +73,11 @@ describe('Apify Node', () => {
 				const mockFinishedRun = fixtures.getSuccessRunResult();
 
 				const scope = nock('https://api.apify.com')
-					.get('/v2/acts/nFJndFXA5zjCTuudP')
+					.get(`/v2/acts/${ACTOR_ID}`)
 					.reply(200, fixtures.getActorResult())
-					.get('/v2/acts/nFJndFXA5zjCTuudP/builds/default')
+					.get(`/v2/acts/${ACTOR_ID}/builds/default`)
 					.reply(200, mockBuild)
-					.post('/v2/acts/nFJndFXA5zjCTuudP/runs')
+					.post(`/v2/acts/${ACTOR_ID}/runs`)
 					.query({ waitForFinish: 0, build: mockBuild.data.buildNumber, memory: 1024 })
 					.reply(200, mockRunActor)
 					.get('/v2/actor-runs/Icz6E0IHX0c40yEi7')

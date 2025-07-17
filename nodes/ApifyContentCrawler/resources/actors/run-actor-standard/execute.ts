@@ -5,11 +5,10 @@ import {
 	NodeOperationError,
 } from 'n8n-workflow';
 import { apiRequest, pollRunStatus } from '../../genericFunctions';
+import { ACTOR_ID } from '../../../ApifyContentCrawler.node';
 
 export async function runActor(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
-	const actorId = this.getNodeParameter('actorId', i, undefined, {
-		extractValue: true,
-	}) as string;
+	const actorId = ACTOR_ID;
 	const timeout = this.getNodeParameter('timeout', i) as number | null;
 	const memory = this.getNodeParameter('memory', i) as number | null;
 	const buildParam = this.getNodeParameter('build', i) as string | null;
