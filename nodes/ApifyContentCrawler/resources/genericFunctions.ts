@@ -146,6 +146,18 @@ export async function pollRunStatus(
 	return lastRunData;
 }
 
+export async function getResults(
+	this: IExecuteFunctions,
+	datasetId: string
+): Promise<any> {
+	const results =  await apiRequest.call(this, {
+		method: 'GET',
+		uri: `/v2/datasets/${datasetId}/items`,
+	});
+
+	return this.helpers.returnJsonArray(results);
+}
+
 export function getActorOrTaskId(this: IHookFunctions): string {
 	const resource = this.getNodeParameter('resource', '') as string;
 	const actorId = this.getNodeParameter('actorId', '') as { value: string };

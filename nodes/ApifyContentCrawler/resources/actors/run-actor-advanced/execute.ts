@@ -4,13 +4,14 @@ import {
 	NodeApiError,
 	NodeOperationError,
 } from 'n8n-workflow';
-import { apiRequest, pollRunStatus } from '../../genericFunctions';
+import { apiRequest, getResults, pollRunStatus } from '../../genericFunctions';
 import { ACTOR_ID } from '../../../ApifyContentCrawler.node';
 
 export async function runActor(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
 	const actorId = ACTOR_ID;
 
-	const waitForFinish = false;
+	// Put this as a const here to keep it as a template for later if we want to run it in async
+	const waitForFinish = true;
 
 	// Get user inputs
 	const entries = this.getNodeParameter('entries', i, {}) as {
@@ -62,10 +63,12 @@ export async function runActor(this: IExecuteFunctions, i: number): Promise<INod
 		return { json: { ...run.data } };
 	}
 
-	// (Not used now, but here for future reference)
 	const runId = run.data.id;
+	const datasetId = run.data.defaultDatasetId;
+
 	const lastRunData = await pollRunStatus.call(this, runId);
-	return { json: { ...lastRunData } };
+	const resultData = await getResults.call(this, datasetId)
+	return { json: { ...lastRunData, ...resultData } };
 }
 
 async function getDefaultBuild(this: IExecuteFunctions, actorId: string) {
