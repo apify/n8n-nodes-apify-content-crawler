@@ -44,7 +44,7 @@ export async function runActor(this: IExecuteFunctions, i: number): Promise<INod
 	// Override startUrls
 	delete mergedInput.startUrls;
 	if (entries?.entry?.length) {
-		mergedInput.startUrls = entries.entry.map(e => ({
+		mergedInput.startUrls = entries.entry.map((e) => ({
 			url: e.value,
 			method: 'GET',
 		}));
@@ -67,7 +67,7 @@ export async function runActor(this: IExecuteFunctions, i: number): Promise<INod
 	const datasetId = run.data.defaultDatasetId;
 
 	const lastRunData = await pollRunStatus.call(this, runId);
-	const resultData = await getResults.call(this, datasetId)
+	const resultData = await getResults.call(this, datasetId);
 	return { json: { ...lastRunData, ...resultData } };
 }
 

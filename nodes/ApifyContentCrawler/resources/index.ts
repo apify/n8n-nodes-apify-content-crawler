@@ -33,9 +33,6 @@ const rawProperties: INodeProperties[] = [
 
 const { properties, methods: selfMethods } = runHooks(rawProperties);
 
-const methods = aggregateNodeMethods([
-	selfMethods,
-	actors.methods,
-]);
+const methods = aggregateNodeMethods([selfMethods, actors.methods]);
 
 export { properties, methods };

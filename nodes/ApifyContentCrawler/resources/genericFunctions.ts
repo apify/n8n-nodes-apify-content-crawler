@@ -146,11 +146,8 @@ export async function pollRunStatus(
 	return lastRunData;
 }
 
-export async function getResults(
-	this: IExecuteFunctions,
-	datasetId: string
-): Promise<any> {
-	const results =  await apiRequest.call(this, {
+export async function getResults(this: IExecuteFunctions, datasetId: string): Promise<any> {
+	const results = await apiRequest.call(this, {
 		method: 'GET',
 		uri: `/v2/datasets/${datasetId}/items`,
 	});

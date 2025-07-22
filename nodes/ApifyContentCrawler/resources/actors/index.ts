@@ -4,10 +4,7 @@ import { runHooks } from './hooks';
 import * as runActorStandard from './run-actor-standard';
 import * as runActorAdvanced from './run-actor-advanced';
 
-const operations: INodePropertyOptions[] = [
-	runActorStandard.option,
-	runActorAdvanced.option,
-];
+const operations: INodePropertyOptions[] = [runActorStandard.option, runActorAdvanced.option];
 
 export const name = 'Actors';
 

@@ -9,7 +9,8 @@ const rawOption: INodePropertyOptions = {
 	name: 'Advanced Settings',
 	value: 'Run Actor Advanced',
 	action: 'Crawl a Website (Advanced Settings)',
-	description: 'Use advanced options for crawling including crawling type, crawling depth, and max pages',
+	description:
+		'Use advanced options for crawling including crawling type, crawling depth, and max pages',
 };
 
 const { properties, option } = runHooks(rawOption, rawProperties);

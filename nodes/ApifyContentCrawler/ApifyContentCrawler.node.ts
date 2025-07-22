@@ -8,7 +8,7 @@ import { properties } from './ApifyContentCrawler.properties';
 import { methods } from './ApifyContentCrawler.methods';
 import { resourceRouter } from './resources/router';
 
-export const ACTOR_ID = "aYG0l9s7dbB7j3gbS";
+export const ACTOR_ID = 'aYG0l9s7dbB7j3gbS';
 
 export class ApifyContentCrawler implements INodeType {
 	description: INodeTypeDescription = {
@@ -22,7 +22,7 @@ export class ApifyContentCrawler implements INodeType {
 			'Crawl any website and extract text content to feed AI Workflows or LLM applications.',
 		defaults: {
 			name: 'Apify Content Crawler',
-	},
+		},
 		inputs: ['main'],
 		outputs: ['main'],
 		credentials: [

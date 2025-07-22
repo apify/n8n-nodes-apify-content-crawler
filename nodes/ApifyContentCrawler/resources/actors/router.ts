@@ -2,10 +2,9 @@ import { IExecuteFunctions, INodeExecutionData, NodeOperationError } from 'n8n-w
 
 import { name as actorResourceName } from './index';
 import { name as runActorStandardOperationName } from './run-actor-standard';
-import { name as runActorAdvancedOperationName } from './run-actor-advanced'
+import { name as runActorAdvancedOperationName } from './run-actor-advanced';
 import { runActor as runActorStandard } from './run-actor-standard/execute';
 import { runActor as runActorAdvanced } from './run-actor-advanced/execute';
-
 
 export async function actorsRouter(
 	this: IExecuteFunctions,
