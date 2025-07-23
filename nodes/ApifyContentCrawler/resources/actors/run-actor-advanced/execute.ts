@@ -10,9 +10,6 @@ import { ACTOR_ID } from '../../../ApifyContentCrawler.node';
 export async function runActor(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
 	const actorId = ACTOR_ID;
 
-	// Put this as a const here to keep it as a template for later if we want to run it in async
-	const waitForFinish = true;
-
 	// Get user inputs
 	const entries = this.getNodeParameter('entries', i, {}) as {
 		entry?: { value: string }[];
@@ -56,11 +53,6 @@ export async function runActor(this: IExecuteFunctions, i: number): Promise<INod
 		throw new NodeApiError(this.getNode(), {
 			message: `Run ID not found after running the actor`,
 		});
-	}
-
-	// 5. Return immediately if not waiting
-	if (!waitForFinish) {
-		return { json: { ...run.data } };
 	}
 
 	const runId = run.data.id;
