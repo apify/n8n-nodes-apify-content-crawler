@@ -155,18 +155,6 @@ export async function getResults(this: IExecuteFunctions, datasetId: string): Pr
 	return this.helpers.returnJsonArray(results);
 }
 
-export function getActorOrTaskId(this: IHookFunctions): string {
-	const resource = this.getNodeParameter('resource', '') as string;
-	const actorId = this.getNodeParameter('actorId', '') as { value: string };
-	const actorTaskId = this.getNodeParameter('actorTaskId', '') as { value: string };
-
-	if (resource === 'task') {
-		return actorTaskId.value;
-	}
-
-	return actorId.value;
-}
-
 export function getCondition(this: IHookFunctions, resource: string, id: string): object {
 	return resource === 'actor' ? { actorId: id } : { actorTaskId: id };
 }

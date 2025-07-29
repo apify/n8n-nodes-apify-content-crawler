@@ -13,11 +13,6 @@ const operationSelect: INodeProperties = {
 	name: 'operation',
 	type: 'options',
 	noDataExpression: true,
-	displayOptions: {
-		show: {
-			resource: ['Actors'],
-		},
-	},
 	default: '',
 };
 

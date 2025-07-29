@@ -8,7 +8,6 @@ export const properties: INodeProperties[] = [
 		default: 'recentlyUsed',
 		displayOptions: {
 			show: {
-				resource: ['Actors'],
 				operation: ['Run Actor Standard'],
 			},
 		},
@@ -20,7 +19,6 @@ export const properties: INodeProperties[] = [
 		typeOptions: { multipleValues: true },
 		displayOptions: {
 			show: {
-				resource: ['Actors'],
 				operation: ['Run Actor Standard'],
 			},
 		},
@@ -65,7 +63,6 @@ export const properties: INodeProperties[] = [
 			'Adaptive switching between browser and raw HTTP (default) - Fast and renders JavaScript content if present. This is the recommended option.\nHeadless web browser with Firefox and Playwright - Useful for modern websites with anti-scraping protections and JavaScript rendering. It recognizes common blocking patterns like CAPTCHAs and automatically retries blocked requests through new sessions.\nRaw HTTP client - High-performance crawling mode that uses raw HTTP requests to fetch the pages. It is faster and cheaper, but it might not work on all websites.',
 		displayOptions: {
 			show: {
-				resource: ['Actors'],
 				operation: ['Run Actor Standard'],
 			},
 		},
