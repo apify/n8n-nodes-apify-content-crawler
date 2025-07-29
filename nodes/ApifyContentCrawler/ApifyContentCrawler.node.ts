@@ -6,7 +6,7 @@ import {
 } from 'n8n-workflow';
 import { properties } from './ApifyContentCrawler.properties';
 import { methods } from './ApifyContentCrawler.methods';
-import { resourceRouter } from './resources/router';
+import { actorsRouter } from './resources/actors/router';
 
 export const ACTOR_ID = 'aYG0l9s7dbB7j3gbS';
 
@@ -16,7 +16,8 @@ export class ApifyContentCrawler implements INodeType {
 		name: 'apifyContentCrawler',
 		icon: 'file:apify.svg',
 		group: ['transform'],
-		version: 2,
+		// Mismatched version and defaultVersion as a minor hack to hide "Custom API Call" resource
+		version: [1],
 		defaultVersion: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description:
@@ -59,7 +60,7 @@ export class ApifyContentCrawler implements INodeType {
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
-			const data = await resourceRouter.call(this, i);
+			const data = await actorsRouter.call(this, i);
 			// `data` may be an array of items or a single item, so we either push the spreaded array or the single item
 			if (Array.isArray(data)) {
 				returnData.push(...data);
