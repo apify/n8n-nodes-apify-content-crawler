@@ -8,7 +8,6 @@ import { apiRequest, getResults, pollRunStatus } from '../../genericFunctions';
 import { ACTOR_ID } from '../../../ApifyContentCrawler.node';
 
 export async function runActor(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
-	const actorId = ACTOR_ID;
 
 	// Get inputs
 	const entries = this.getNodeParameter('entries', i, {}) as {
@@ -16,12 +15,12 @@ export async function runActor(this: IExecuteFunctions, i: number): Promise<INod
 	};
 	const crawlerType = this.getNodeParameter('crawlerType', i) as string;
 
-	if (!actorId) {
+	if (!ACTOR_ID) {
 		throw new NodeOperationError(this.getNode(), 'Actor ID is required');
 	}
 
 	// 1. Get the default build
-	const build = await getDefaultBuild.call(this, actorId);
+	const build = await getDefaultBuild.call(this, ACTOR_ID);
 
 	// 2. Get default input from build
 	const defaultInput = getDefaultInputsFromBuild(build);
@@ -40,7 +39,7 @@ export async function runActor(this: IExecuteFunctions, i: number): Promise<INod
 	}
 
 	// 4. Run the actor
-	const run = await runActorApi.call(this, actorId, mergedInput, { waitForFinish: 0 });
+	const run = await runActorApi.call(this, ACTOR_ID, mergedInput, { waitForFinish: 0 });
 	if (!run?.data?.id) {
 		throw new NodeApiError(this.getNode(), {
 			message: `Run ID not found after running the actor`,

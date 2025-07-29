@@ -16,12 +16,13 @@ export class ApifyContentCrawler implements INodeType {
 		name: 'apifyContentCrawler',
 		icon: 'file:apify.svg',
 		group: ['transform'],
-		version: 1,
+		version: 2,
+		defaultVersion: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description:
 			'Crawl any website and extract text content to feed AI Workflows or LLM applications.',
 		defaults: {
-			name: 'Apify Content Crawler',
+			name: 'Apify Scraper for AI Crawling',
 		},
 		inputs: ['main'],
 		outputs: ['main'],
