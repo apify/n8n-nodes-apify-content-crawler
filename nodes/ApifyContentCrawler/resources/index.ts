@@ -9,10 +9,7 @@ import * as actors from './actors';
 
 const authenticationProperties: INodeProperties[] = [];
 
-const rawProperties: INodeProperties[] = [
-	...authenticationProperties,
-	...actors.properties,
-];
+const rawProperties: INodeProperties[] = [...authenticationProperties, ...actors.properties];
 
 const { properties, methods: selfMethods } = runHooks(rawProperties);
 
