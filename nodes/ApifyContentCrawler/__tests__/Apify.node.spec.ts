@@ -52,14 +52,13 @@ describe('Apify Node', () => {
 					.get('/v2/actor-runs/Icz6E0IHX0c40yEi7')
 					.reply(200, mockFinishedRun);
 
-				const runActorWorkflow = require('./workflows/actors/run-actor.workflow.json');
-				const { waitPromise } = await executeWorkflow({
+				const runActorWorkflow = require('./workflows/actors/run-actor-wait-for-finish.workflow.json');
+				const { executionData } = await executeWorkflow({
 					credentialsHelper,
 					workflow: runActorWorkflow,
 				});
-				const result = await waitPromise.promise();
 
-				const nodeResults = getRunTaskDataByNodeName(result, 'Run actor');
+				const nodeResults = getRunTaskDataByNodeName(executionData, 'Run actor');
 				expect(nodeResults.length).toBe(1);
 				const [nodeResult] = nodeResults;
 				expect(nodeResult.executionStatus).toBe('success');

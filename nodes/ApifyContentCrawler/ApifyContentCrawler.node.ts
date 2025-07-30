@@ -3,6 +3,7 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
+	NodeConnectionType,
 } from 'n8n-workflow';
 import { properties } from './ApifyContentCrawler.properties';
 import { methods } from './ApifyContentCrawler.methods';
@@ -25,8 +26,9 @@ export class ApifyContentCrawler implements INodeType {
 		defaults: {
 			name: 'Apify Scraper for AI Crawling',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
+		usableAsTool: true,
 		credentials: [
 			{
 				displayName: 'Apify API key connection',
