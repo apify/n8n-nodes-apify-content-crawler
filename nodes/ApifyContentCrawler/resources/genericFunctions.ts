@@ -32,7 +32,7 @@ export async function apiRequest(
 		url: endpoint,
 		headers: {
 			'x-apify-integration-platform': 'n8n',
-			'x-apify-integration-app-id': 'website-content-crawler-app'
+			'x-apify-integration-app-id': 'website-content-crawler-app',
 		},
 	};
 
