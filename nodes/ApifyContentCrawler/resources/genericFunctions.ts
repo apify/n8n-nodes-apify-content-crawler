@@ -153,7 +153,3 @@ export async function getResults(this: IExecuteFunctions, datasetId: string): Pr
 
 	return this.helpers.returnJsonArray(results);
 }
-
-export function compose(...fns: Function[]) {
-	return (x: any) => fns.reduce((v, f) => f(v), x);
-}
