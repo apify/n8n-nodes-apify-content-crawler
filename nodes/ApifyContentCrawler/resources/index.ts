@@ -2,17 +2,12 @@
 
 import { INodeProperties } from 'n8n-workflow';
 
-import { aggregateNodeMethods } from '../helpers/methods';
-import { runHooks } from './hooks';
-
 import * as actors from './actors';
 
 const authenticationProperties: INodeProperties[] = [];
 
-const rawProperties: INodeProperties[] = [...authenticationProperties, ...actors.properties];
+const properties: INodeProperties[] = [...authenticationProperties, ...actors.properties];
 
-const { properties, methods: selfMethods } = runHooks(rawProperties);
-
-const methods = aggregateNodeMethods([selfMethods, actors.methods]);
+const methods = {};
 
 export { properties, methods };
