@@ -40,33 +40,36 @@ describe('Apify Node', () => {
 				const mockRunActor = fixtures.runActorResult();
 				const mockBuild = fixtures.getBuildResult();
 				const mockFinishedRun = fixtures.getSuccessRunResult();
+				const mockResultDataset = fixtures.getDatasetItems();
 
 				const scope = nock('https://api.apify.com')
-					.get(`/v2/acts/${ACTOR_ID}`)
-					.reply(200, fixtures.getActorResult())
 					.get(`/v2/acts/${ACTOR_ID}/builds/default`)
 					.reply(200, mockBuild)
 					.post(`/v2/acts/${ACTOR_ID}/runs`)
-					.query({ waitForFinish: 0, build: mockBuild.data.buildNumber, memory: 1024 })
+					.query({ waitForFinish: 0 })
 					.reply(200, mockRunActor)
-					.get('/v2/actor-runs/Icz6E0IHX0c40yEi7')
-					.reply(200, mockFinishedRun);
+					.get('/v2/actor-runs/5rsC83CHinQwPlsSI')
+					.reply(200, mockFinishedRun)
+					.get('/v2/datasets/63kMAihbWVgBvEAZ2/items')
+					.reply(200, mockResultDataset);
 
-				const runActorWorkflow = require('./workflows/actors/run-actor-wait-for-finish.workflow.json');
+				const runActorWorkflow = require('./workflows/actors/run-actor.workflow.json');
 				const { executionData } = await executeWorkflow({
 					credentialsHelper,
 					workflow: runActorWorkflow,
 				});
-
-				const nodeResults = getRunTaskDataByNodeName(executionData, 'Run actor');
+				const nodeResults = getRunTaskDataByNodeName(executionData, 'Crawl a Website (Standard Settings)');
 				expect(nodeResults.length).toBe(1);
 				const [nodeResult] = nodeResults;
 				expect(nodeResult.executionStatus).toBe('success');
 
 				const data = getTaskData(nodeResult);
-				// exptect polled terminal run as result
-				expect(data).not.toEqual(mockRunActor.data);
-				expect(data).toEqual(mockFinishedRun.data);
+				console.log("mmmmmm")
+				console.log(data?.['0']);
+				expect(typeof data).toBe('object');
+				const first = data?.['0'] as { json: any };
+				expect(first.json).toEqual(mockResultDataset[0]);
+				console.log('Pending mocks:', scope.pendingMocks());
 
 				expect(scope.isDone()).toBe(true);
 			});

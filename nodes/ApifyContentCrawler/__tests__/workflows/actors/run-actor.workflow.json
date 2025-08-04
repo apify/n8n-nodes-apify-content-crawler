@@ -1,48 +1,44 @@
 {
-	"name": "Test Workflow",
-	"nodes": [
-		{
-			"parameters": {
-				"operation": "Run Actor Advanced",
-				"entries": {
-					"entry": [
-						{
-							"value": "https://en.wikipedia.org/wiki/Star_Wars"
-						},
-						{
-							"value": "https://en.wikipedia.org/wiki/Indiana_Jones"
-						}
-					]
-				},
-				"sitemapUrlsEnabled": true,
-				"crawlerType": "playwright:firefox",
-				"maxDepth": 200,
-				"maxPages": 999999
-			},
-			"type": "n8n-nodes-apify-content-crawler.apifyContentCrawler",
-			"typeVersion": 1,
-			"position": [208, 0],
-			"id": "1ad1c1a6-a5b1-46f7-b700-b6762d867bf4",
-			"name": "Crawl a Website (Advanced Settings)",
-			"credentials": {
-				"apifyApi": {
-					"id": "1tlG9MyqRLFIPdyr",
-					"name": "Apify account 2"
-				}
-			}
-		}
-	],
-	"pinData": {},
-	"connections": {},
-	"active": false,
-	"settings": {
-		"executionOrder": "v1"
-	},
-	"versionId": "f0b1fbea-24c1-4609-9291-352205a81a3d",
-	"meta": {
-		"templateCredsSetupCompleted": true,
-		"instanceId": "925640a9a9512b53d285f56b2e7622b2a7e24bff2d2f2b74929b9266158e3a7f"
-	},
-	"id": "pxdir15PZQIBTuz0",
-	"tags": []
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "Run Actor Standard",
+        "entries": {
+          "entry": [
+            {
+              "value": "https://en.wikipedia.org/wiki/Indiana_Jones"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-apify-content-crawler.apifyContentCrawler",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7291f536-58a7-4718-bdcb-86119d3631d9",
+      "name": "Crawl a Website (Standard Settings)",
+      "credentials": {
+        "apifyApi": {
+          "id": "1tlG9MyqRLFIPdyr",
+          "name": "Apify account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "77435cff-e3f5-4619-88bc-b4992181c238",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "925640a9a9512b53d285f56b2e7622b2a7e24bff2d2f2b74929b9266158e3a7f"
+  },
+  "id": "pxdir15PZQIBTuz0",
+  "tags": []
 }

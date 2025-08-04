@@ -41,6 +41,6 @@ export class NodeTypesClass implements INodeTypes {
 
 const nodeTypes = new NodeTypesClass();
 
-nodeTypes.addNode('n8n-nodes-apify-content-crawler.apify', new ApifyContentCrawler());
+nodeTypes.addNode('n8n-nodes-apify-content-crawler.apifyContentCrawler', new ApifyContentCrawler());
 
 export { nodeTypes };
