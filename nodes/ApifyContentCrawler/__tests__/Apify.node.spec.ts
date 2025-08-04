@@ -36,42 +36,58 @@ describe('Apify Node', () => {
 
 	describe('actors', () => {
 		describe('run-actor', () => {
-			it('should run the run-actor workflow and wait for finish', async () => {
+			it('should run the WCC actor for both standard and advanced options', async () => {
 				const mockRunActor = fixtures.runActorResult();
 				const mockBuild = fixtures.getBuildResult();
 				const mockFinishedRun = fixtures.getSuccessRunResult();
 				const mockResultDataset = fixtures.getDatasetItems();
 
-				const scope = nock('https://api.apify.com')
-					.get(`/v2/acts/${ACTOR_ID}/builds/default`)
-					.reply(200, mockBuild)
-					.post(`/v2/acts/${ACTOR_ID}/runs`)
-					.query({ waitForFinish: 0 })
-					.reply(200, mockRunActor)
-					.get('/v2/actor-runs/5rsC83CHinQwPlsSI')
-					.reply(200, mockFinishedRun)
-					.get('/v2/datasets/63kMAihbWVgBvEAZ2/items')
-					.reply(200, mockResultDataset);
+				const tests = [
+					{
+						workflowJsonName: 'run-actor-advanced.workflow.json',
+						nodeName: 'Crawl a Website (Advanced Settings)',
+					},
+					{
+						workflowJsonName: 'run-actor-standard.workflow.json',
+						nodeName: 'Crawl a Website (Standard Settings)',
+					},
+				];
 
-				const runActorWorkflow = require('./workflows/actors/run-actor.workflow.json');
-				const { executionData } = await executeWorkflow({
-					credentialsHelper,
-					workflow: runActorWorkflow,
-				});
-				const nodeResults = getRunTaskDataByNodeName(executionData, 'Crawl a Website (Standard Settings)');
-				expect(nodeResults.length).toBe(1);
-				const [nodeResult] = nodeResults;
-				expect(nodeResult.executionStatus).toBe('success');
+				for (const { workflowJsonName, nodeName } of tests) {
+					const scope = nock('https://api.apify.com')
+						.get(`/v2/acts/${ACTOR_ID}/builds/default`)
+						.reply(200, mockBuild)
+						.post(`/v2/acts/${ACTOR_ID}/runs`)
+						.query({ waitForFinish: 0 })
+						.reply(200, mockRunActor)
+						.get('/v2/actor-runs/5rsC83CHinQwPlsSI')
+						.reply(200, mockFinishedRun)
+						.get('/v2/datasets/63kMAihbWVgBvEAZ2/items')
+						.reply(200, mockResultDataset);
 
-				const data = getTaskData(nodeResult);
-				console.log("mmmmmm")
-				console.log(data?.['0']);
-				expect(typeof data).toBe('object');
-				const first = data?.['0'] as { json: any };
-				expect(first.json).toEqual(mockResultDataset[0]);
-				console.log('Pending mocks:', scope.pendingMocks());
+					const workflow = require(`./workflows/actors/${workflowJsonName}`);
+					const { executionData } = await executeWorkflow({
+						credentialsHelper,
+						workflow,
+					});
 
-				expect(scope.isDone()).toBe(true);
+					const nodeResults = getRunTaskDataByNodeName(executionData, nodeName);
+					expect(nodeResults.length).toBe(1);
+
+					const [nodeResult] = nodeResults;
+					expect(nodeResult.executionStatus).toBe('success');
+
+					const data = getTaskData(nodeResult);
+					expect(typeof data).toBe('object');
+
+					// n8n transforms the api result into a json
+					// this is a small work around to check the data
+					const first = data?.['0'] as { json: any };
+					expect(first.json).toEqual(mockResultDataset[0]);
+
+					console.log(`Pending mocks for ${workflowJsonName}:`, scope.pendingMocks());
+					expect(scope.isDone()).toBe(true);
+				}
 			});
 		});
 	});
