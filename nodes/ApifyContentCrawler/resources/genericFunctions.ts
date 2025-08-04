@@ -154,28 +154,3 @@ export async function getResults(this: IExecuteFunctions, datasetId: string): Pr
 
 	return this.helpers.returnJsonArray(results);
 }
-
-export function getCondition(this: IHookFunctions, resource: string, id: string): object {
-	return resource === 'actor' ? { actorId: id } : { actorTaskId: id };
-}
-
-export function normalizeEventTypes(selected: string[]): string[] {
-	if (selected.includes('any')) {
-		return ['ACTOR.RUN.SUCCEEDED', 'ACTOR.RUN.FAILED', 'ACTOR.RUN.TIMED_OUT', 'ACTOR.RUN.ABORTED'];
-	}
-	return selected;
-}
-
-export function generateIdempotencyKey(
-	resource: string,
-	actorOrTaskId: string,
-	eventTypes: string[],
-): string {
-	const sortedEventTypes = [...eventTypes].sort();
-	const raw = `${resource}:${actorOrTaskId}:${sortedEventTypes.join(',')}`;
-	return Buffer.from(raw).toString('base64');
-}
-
-export function compose(...fns: Function[]) {
-	return (x: any) => fns.reduce((v, f) => f(v), x);
-}
