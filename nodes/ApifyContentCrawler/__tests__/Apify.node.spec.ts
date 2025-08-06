@@ -88,7 +88,7 @@ describe('Apify Node', () => {
 
 					console.log(`Pending mocks for ${workflowJsonName}:`, scope.pendingMocks());
 					expect(scope.isDone()).toBe(true);
-				}
+				},
 			);
 		});
 	});
