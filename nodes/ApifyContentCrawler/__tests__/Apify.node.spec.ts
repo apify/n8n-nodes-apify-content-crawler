@@ -36,24 +36,27 @@ describe('Apify Node', () => {
 
 	describe('actors', () => {
 		describe('run-actor', () => {
-			it('should run the WCC actor for both standard and advanced options', async () => {
-				const mockRunActor = fixtures.runActorResult();
-				const mockBuild = fixtures.getBuildResult();
-				const mockFinishedRun = fixtures.getSuccessRunResult();
-				const mockResultDataset = fixtures.getDatasetItems();
+			const mockRunActor = fixtures.runActorResult();
+			const mockBuild = fixtures.getBuildResult();
+			const mockFinishedRun = fixtures.getSuccessRunResult();
+			const mockResultDataset = fixtures.getDatasetItems();
 
-				const tests = [
-					{
-						workflowJsonName: 'run-actor-advanced.workflow.json',
-						nodeName: 'Crawl a Website (Advanced Settings)',
-					},
-					{
-						workflowJsonName: 'run-actor-standard.workflow.json',
-						nodeName: 'Crawl a Website (Standard Settings)',
-					},
-				];
+			const tests = [
+				{
+					name: 'Advanced Workflow',
+					workflowJsonName: 'run-actor-advanced.workflow.json',
+					nodeName: 'Crawl a Website (Advanced Settings)',
+				},
+				{
+					name: 'Standard Workflow',
+					workflowJsonName: 'run-actor-standard.workflow.json',
+					nodeName: 'Crawl a Website (Standard Settings)',
+				},
+			];
 
-				for (const { workflowJsonName, nodeName } of tests) {
+			test.each(tests)(
+				'$name should run the WCC actor correctly',
+				async ({ workflowJsonName, nodeName }) => {
 					const scope = nock('https://api.apify.com')
 						.get(`/v2/acts/${ACTOR_ID}/builds/default`)
 						.reply(200, mockBuild)
@@ -80,15 +83,13 @@ describe('Apify Node', () => {
 					const data = getTaskData(nodeResult);
 					expect(typeof data).toBe('object');
 
-					// n8n transforms the api result into a json
-					// this is a small work around to check the data
 					const first = data?.['0'] as { json: any };
 					expect(first.json).toEqual(mockResultDataset[0]);
 
 					console.log(`Pending mocks for ${workflowJsonName}:`, scope.pendingMocks());
 					expect(scope.isDone()).toBe(true);
 				}
-			});
+			);
 		});
 	});
 });
