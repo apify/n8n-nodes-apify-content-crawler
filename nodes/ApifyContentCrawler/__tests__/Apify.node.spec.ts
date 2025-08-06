@@ -36,40 +36,60 @@ describe('Apify Node', () => {
 
 	describe('actors', () => {
 		describe('run-actor', () => {
-			it('should run the run-actor workflow and wait for finish', async () => {
-				const mockRunActor = fixtures.runActorResult();
-				const mockBuild = fixtures.getBuildResult();
-				const mockFinishedRun = fixtures.getSuccessRunResult();
+			const mockRunActor = fixtures.runActorResult();
+			const mockBuild = fixtures.getBuildResult();
+			const mockFinishedRun = fixtures.getSuccessRunResult();
+			const mockResultDataset = fixtures.getDatasetItems();
 
-				const scope = nock('https://api.apify.com')
-					.get(`/v2/acts/${ACTOR_ID}`)
-					.reply(200, fixtures.getActorResult())
-					.get(`/v2/acts/${ACTOR_ID}/builds/default`)
-					.reply(200, mockBuild)
-					.post(`/v2/acts/${ACTOR_ID}/runs`)
-					.query({ waitForFinish: 0, build: mockBuild.data.buildNumber, memory: 1024 })
-					.reply(200, mockRunActor)
-					.get('/v2/actor-runs/Icz6E0IHX0c40yEi7')
-					.reply(200, mockFinishedRun);
+			const tests = [
+				{
+					name: 'Advanced Workflow',
+					workflowJsonName: 'run-actor-advanced.workflow.json',
+					nodeName: 'Crawl a Website (Advanced Settings)',
+				},
+				{
+					name: 'Standard Workflow',
+					workflowJsonName: 'run-actor-standard.workflow.json',
+					nodeName: 'Crawl a Website (Standard Settings)',
+				},
+			];
 
-				const runActorWorkflow = require('./workflows/actors/run-actor-wait-for-finish.workflow.json');
-				const { executionData } = await executeWorkflow({
-					credentialsHelper,
-					workflow: runActorWorkflow,
-				});
+			test.each(tests)(
+				'$name should run the WCC actor correctly',
+				async ({ workflowJsonName, nodeName }) => {
+					const scope = nock('https://api.apify.com')
+						.get(`/v2/acts/${ACTOR_ID}/builds/default`)
+						.reply(200, mockBuild)
+						.post(`/v2/acts/${ACTOR_ID}/runs`)
+						.query({ waitForFinish: 0 })
+						.reply(200, mockRunActor)
+						.get('/v2/actor-runs/5rsC83CHinQwPlsSI')
+						.reply(200, mockFinishedRun)
+						.get('/v2/datasets/63kMAihbWVgBvEAZ2/items')
+						.reply(200, mockResultDataset);
 
-				const nodeResults = getRunTaskDataByNodeName(executionData, 'Run actor');
-				expect(nodeResults.length).toBe(1);
-				const [nodeResult] = nodeResults;
-				expect(nodeResult.executionStatus).toBe('success');
+					const workflow = require(`./workflows/actors/${workflowJsonName}`);
+					const { executionData } = await executeWorkflow({
+						credentialsHelper,
+						workflow,
+					});
 
-				const data = getTaskData(nodeResult);
-				// exptect polled terminal run as result
-				expect(data).not.toEqual(mockRunActor.data);
-				expect(data).toEqual(mockFinishedRun.data);
+					const nodeResults = getRunTaskDataByNodeName(executionData, nodeName);
+					expect(nodeResults.length).toBe(1);
 
-				expect(scope.isDone()).toBe(true);
-			});
+					const [nodeResult] = nodeResults;
+					expect(nodeResult.executionStatus).toBe('success');
+
+					const data = getTaskData(nodeResult);
+					expect(typeof data).toBe('object');
+
+					const first = data?.['0'] as { json: any };
+					expect(first.json).toEqual(mockResultDataset[0]);
+
+					console.log(`Pending mocks for ${workflowJsonName}:`, scope.pendingMocks());
+					expect(scope.isDone()).toBe(true);
+				},
+			);
 		});
 	});
 });
