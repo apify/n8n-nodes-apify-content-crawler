@@ -120,6 +120,11 @@ export async function apiRequestAllItems(
 	return combinedData;
 }
 
+export function isUsedAsAiTool(nodeType: string): boolean {
+	const parts = nodeType.split('.');
+	return parts[parts.length - 1] === 'apifyContentCrawlerTool';
+}
+
 export async function pollRunStatus(
 	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
 	runId: string,
@@ -147,10 +152,16 @@ export async function pollRunStatus(
 }
 
 export async function getResults(this: IExecuteFunctions, datasetId: string): Promise<any> {
-	const results = await apiRequest.call(this, {
+	let results = await apiRequest.call(this, {
 		method: 'GET',
 		uri: `/v2/datasets/${datasetId}/items`,
 	});
+
+	// If used as a tool from an AI Agent, only return markdown results
+	// This reduces the token amount more than half
+	if (isUsedAsAiTool(this.getNode().type)) {
+		results = results.map((item: any) => ({ markdown: item.markdown }));
+	}
 
 	return this.helpers.returnJsonArray(results);
 }
