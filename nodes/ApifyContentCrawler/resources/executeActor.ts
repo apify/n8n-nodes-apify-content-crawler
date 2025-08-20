@@ -70,8 +70,10 @@ export async function executeActorRunFlow(
 		usageTotalUsd,
 		usage,
 		options,
-		status,
+		stats,
 		meta,
+		integrationTracking,
+		containerUrl,
 		...cleanedRunData
 	} = lastRunData;
 
