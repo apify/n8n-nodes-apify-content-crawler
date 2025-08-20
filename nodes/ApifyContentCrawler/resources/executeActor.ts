@@ -59,27 +59,8 @@ export async function executeActorRunFlow(
 		});
 	}
 
-	const runId = run.data.id;
 	const datasetId = run.data.defaultDatasetId;
-	const lastRunData = await pollRunStatus.call(this, runId);
 	const resultData = await getResults.call(this, datasetId);
 
-	// Clean unecessery values from the lastRunData
-	const {
-		usageUsd,
-		usageTotalUsd,
-		usage,
-		options,
-		stats,
-		meta,
-		integrationTracking,
-		containerUrl,
-		...cleanedRunData
-	} = lastRunData;
-
-	if (isUsedAsAiTool(this.getNode().type)) {
-		return { json: { ...resultData } };
-	}
-
-	return { json: { ...cleanedRunData, ...resultData } };
+	return resultData;
 }
