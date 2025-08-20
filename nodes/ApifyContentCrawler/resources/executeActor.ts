@@ -1,5 +1,5 @@
 import { IExecuteFunctions, INodeExecutionData, NodeApiError } from 'n8n-workflow';
-import { apiRequest, getResults } from './genericFunctions';
+import { apiRequest, getResults, pollRunStatus } from './genericFunctions';
 
 export async function getDefaultBuild(this: IExecuteFunctions, actorId: string) {
 	const defaultBuildResp = await apiRequest.call(this, {
@@ -59,6 +59,11 @@ export async function executeActorRunFlow(
 		});
 	}
 
+	const runId = run.data.id;
 	const datasetId = run.data.defaultDatasetId;
+	
+	// Wait for Actor run to finish
+	await pollRunStatus.call(this, runId);
+	
 	return await getResults.call(this, datasetId);
 }
