@@ -60,7 +60,5 @@ export async function executeActorRunFlow(
 	}
 
 	const datasetId = run.data.defaultDatasetId;
-	const resultData = await getResults.call(this, datasetId);
-
-	return resultData;
+	return await getResults.call(this, datasetId);
 }
