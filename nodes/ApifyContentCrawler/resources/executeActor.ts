@@ -1,5 +1,5 @@
 import { IExecuteFunctions, INodeExecutionData, NodeApiError } from 'n8n-workflow';
-import { apiRequest, getResults, isUsedAsAiTool, pollRunStatus } from './genericFunctions';
+import { apiRequest, getResults } from './genericFunctions';
 
 export async function getDefaultBuild(this: IExecuteFunctions, actorId: string) {
 	const defaultBuildResp = await apiRequest.call(this, {
