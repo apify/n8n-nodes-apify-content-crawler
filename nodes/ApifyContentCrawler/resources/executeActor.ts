@@ -64,9 +64,20 @@ export async function executeActorRunFlow(
 	const lastRunData = await pollRunStatus.call(this, runId);
 	const resultData = await getResults.call(this, datasetId);
 
+	// Clean unecessery values from the lastRunData
+	const {
+		usageUsd,
+		usageTotalUsd,
+		usage,
+		options,
+		status,
+		meta,
+		...cleanedRunData
+	} = lastRunData;
+
 	if (isUsedAsAiTool(this.getNode().type)) {
 		return { json: { ...resultData } };
 	}
 
-	return { json: { ...lastRunData, ...resultData } };
+	return { json: { ...cleanedRunData, ...resultData } };
 }
