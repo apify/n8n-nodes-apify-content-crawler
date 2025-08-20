@@ -61,9 +61,9 @@ export async function executeActorRunFlow(
 
 	const runId = run.data.id;
 	const datasetId = run.data.defaultDatasetId;
-	
+
 	// Wait for Actor run to finish
 	await pollRunStatus.call(this, runId);
-	
+
 	return await getResults.call(this, datasetId);
 }
