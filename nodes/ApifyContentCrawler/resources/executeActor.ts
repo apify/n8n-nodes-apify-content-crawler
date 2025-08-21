@@ -1,5 +1,5 @@
 import { IExecuteFunctions, INodeExecutionData, NodeApiError } from 'n8n-workflow';
-import { apiRequest, getResults, isUsedAsAiTool, pollRunStatus } from './genericFunctions';
+import { apiRequest, getResults, pollRunStatus } from './genericFunctions';
 
 export async function getDefaultBuild(this: IExecuteFunctions, actorId: string) {
 	const defaultBuildResp = await apiRequest.call(this, {
@@ -61,12 +61,9 @@ export async function executeActorRunFlow(
 
 	const runId = run.data.id;
 	const datasetId = run.data.defaultDatasetId;
-	const lastRunData = await pollRunStatus.call(this, runId);
-	const resultData = await getResults.call(this, datasetId);
 
-	if (isUsedAsAiTool(this.getNode().type)) {
-		return { json: { ...resultData } };
-	}
+	// Wait for Actor run to finish
+	await pollRunStatus.call(this, runId);
 
-	return { json: { ...lastRunData, ...resultData } };
+	return await getResults.call(this, datasetId);
 }

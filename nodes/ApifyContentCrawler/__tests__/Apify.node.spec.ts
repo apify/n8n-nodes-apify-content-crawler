@@ -83,8 +83,7 @@ describe('Apify Node', () => {
 					const data = getTaskData(nodeResult);
 					expect(typeof data).toBe('object');
 
-					const first = data?.['0'] as { json: any };
-					expect(first.json).toEqual(mockResultDataset[0]);
+					expect(data).toEqual(mockResultDataset[0]);
 
 					console.log(`Pending mocks for ${workflowJsonName}:`, scope.pendingMocks());
 					expect(scope.isDone()).toBe(true);
