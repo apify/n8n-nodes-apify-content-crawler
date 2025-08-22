@@ -21,9 +21,7 @@ operationSelect.options = operations;
 // set the default operation
 operationSelect.default = operations.length > 0 ? operations[0].value : '';
 
-export const rawProperties: INodeProperties[] = [
-	...runActorAdvanced.properties,
-];
+export const rawProperties: INodeProperties[] = [...runActorAdvanced.properties];
 
 const { properties, methods } = runHooks(rawProperties);
 

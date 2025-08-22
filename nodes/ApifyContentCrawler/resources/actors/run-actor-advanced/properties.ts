@@ -5,7 +5,7 @@ export const properties: INodeProperties[] = [
 		displayName: 'Actor Source',
 		name: 'actorSource',
 		type: 'hidden',
-		default: 'recentlyUsed'
+		default: 'recentlyUsed',
 	},
 	{
 		displayName: 'Start URLs',
