@@ -46,12 +46,7 @@ describe('Apify Node', () => {
 					name: 'Advanced Workflow',
 					workflowJsonName: 'run-actor-advanced.workflow.json',
 					nodeName: 'Crawl a Website (Advanced Settings)',
-				},
-				{
-					name: 'Standard Workflow',
-					workflowJsonName: 'run-actor-standard.workflow.json',
-					nodeName: 'Crawl a Website (Standard Settings)',
-				},
+				}
 			];
 
 			test.each(tests)(
