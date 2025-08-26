@@ -6,5 +6,6 @@
 	"resources": {
 		"credentialDocumentation": [],
 		"primaryDocumentation": []
-	}
+	},
+	"alias": ["apify", "scraping", "crawling", "content", "website", "llm", "ai", "data", "markdown", "extract", "rag"]
 }
