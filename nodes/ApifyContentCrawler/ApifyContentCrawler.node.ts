@@ -16,7 +16,7 @@ export const ACTOR_ID = 'aYG0l9s7dbB7j3gbS';
 
 export class ApifyContentCrawler implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Apify Scraper for AI Crawling',
+		displayName: 'Website Content Crawler by Apify',
 		name: 'apifyContentCrawler',
 		icon: 'file:apify.svg',
 		group: ['transform'],
@@ -25,9 +25,9 @@ export class ApifyContentCrawler implements INodeType {
 		defaultVersion: 1,
 		subtitle: 'Run Scraper Module',
 		description:
-			'Crawl any website and extract text content to feed AI Workflows or LLM applications.',
+			'Crawl websites and extract text content to feed AI agents, LLM applications, vector databases, or RAG pipelines.',
 		defaults: {
-			name: 'Apify Scraper for AI Crawling',
+			name: 'Website Content Crawler by Apify',
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
