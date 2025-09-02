@@ -2,12 +2,7 @@
 	"node": "n8n-nodes-apify-content-crawler",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": [
-		"Data & Storage",
-		"Marketing & Content",
-		"Development",
-		"Utility"
-	],
+	"categories": ["Data & Storage", "Marketing & Content", "Development", "Utility"],
 	"resources": {
 		"credentialDocumentation": [
 			{
