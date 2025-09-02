@@ -2,10 +2,84 @@
 	"node": "n8n-nodes-apify-content-crawler",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": ["Development", "Developer Tools"],
+	"categories": [
+		"Data & Storage",
+		"Marketing & Content",
+		"Development",
+		"Utility"
+	],
 	"resources": {
-		"credentialDocumentation": [],
-		"primaryDocumentation": []
+		"credentialDocumentation": [
+			{
+				"url": "https://docs.apify.com/platform/integrations/n8n"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://docs.apify.com/"
+			}
+		],
+		"generic": [
+			{
+				"label": "Website Content Crawler — Actor page",
+				"icon": "🕷️",
+				"url": "https://apify.com/apify/website-content-crawler"
+			},
+			{
+				"label": "Use WCC for RAG, embeddings, and agents",
+				"icon": "📚",
+				"url": "https://docs.apify.com/platform/integrations/n8n"
+			},
+			{
+				"label": "Site-wide content snapshots for SEO audits",
+				"icon": "🔎",
+				"url": "https://docs.apify.com/platform/integrations/n8n"
+			},
+			{
+				"label": "What is the Apify platform?",
+				"icon": "ℹ️",
+				"url": "https://docs.apify.com/platform"
+			},
+			{
+				"label": "Actors - serverless cloud programs",
+				"icon": "⚙️",
+				"url": "https://docs.apify.com/platform/actors"
+			},
+			{
+				"label": "Apify API v2 - REST reference",
+				"icon": "🔌",
+				"url": "https://docs.apify.com/api/v2"
+			},
+			{
+				"label": "SDKs for JavaScript and Python",
+				"icon": "🧰",
+				"url": "https://docs.apify.com/sdk"
+			},
+			{
+				"label": "Storage - datasets and key-value stores",
+				"icon": "🗄️",
+				"url": "https://docs.apify.com/platform/storage"
+			},
+			{
+				"label": "Webhook integration",
+				"icon": "📣",
+				"url": "https://docs.apify.com/platform/integrations/webhooks"
+			}
+		]
 	},
-	"alias": ["apify", "scraping", "crawling", "content", "website", "llm", "ai", "data", "markdown", "extract", "rag"]
+	"alias": [
+		"apify",
+		"wcc",
+		"website content crawler",
+		"site crawler",
+		"scraping",
+		"text extraction",
+		"markdown",
+		"sitemap",
+		"rag",
+		"ai agent",
+		"seo",
+		"content",
+		"scraper"
+	]
 }

@@ -23,7 +23,7 @@ export class ApifyContentCrawler implements INodeType {
 		// Mismatched version and defaultVersion as a minor hack to hide "Custom API Call" resource
 		version: [1],
 		defaultVersion: 1,
-		subtitle: 'Run Scraper Module',
+		subtitle: 'Run Crawler',
 		description:
 			'Crawl websites and extract text content to feed AI agents, LLM applications, vector databases, or RAG pipelines.',
 		defaults: {
