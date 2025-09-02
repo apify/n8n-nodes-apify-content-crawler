@@ -16,19 +16,9 @@
 		],
 		"generic": [
 			{
-				"label": "Website Content Crawler — Actor page",
+				"label": "Website Content Crawler — Actor Store page",
 				"icon": "🕷️",
 				"url": "https://apify.com/apify/website-content-crawler"
-			},
-			{
-				"label": "Use WCC for RAG, embeddings, and agents",
-				"icon": "📚",
-				"url": "https://docs.apify.com/platform/integrations/n8n"
-			},
-			{
-				"label": "Site-wide content snapshots for SEO audits",
-				"icon": "🔎",
-				"url": "https://docs.apify.com/platform/integrations/n8n"
 			},
 			{
 				"label": "What is the Apify platform?",
@@ -49,16 +39,6 @@
 				"label": "SDKs for JavaScript and Python",
 				"icon": "🧰",
 				"url": "https://docs.apify.com/sdk"
-			},
-			{
-				"label": "Storage - datasets and key-value stores",
-				"icon": "🗄️",
-				"url": "https://docs.apify.com/platform/storage"
-			},
-			{
-				"label": "Webhook integration",
-				"icon": "📣",
-				"url": "https://docs.apify.com/platform/integrations/webhooks"
 			}
 		]
 	},
