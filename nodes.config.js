@@ -22,7 +22,7 @@ module.exports = {
 			name: 'Apify',
 			description: 'Apify API',
 			api: path.resolve(__dirname, 'openapi.yaml'),
-			icon: './icons/apify-black.svg',
+			icon: './icons/apify.svg',
 			tags: [
 				'Actors/Actor collection',
 				'Actors/Actor object',
