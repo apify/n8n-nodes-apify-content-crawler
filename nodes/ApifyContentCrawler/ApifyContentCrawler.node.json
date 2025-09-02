@@ -2,9 +2,59 @@
 	"node": "n8n-nodes-apify-content-crawler",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": ["Development", "Developer Tools"],
+	"categories": ["Data & Storage", "Marketing & Content", "Development", "Utility"],
 	"resources": {
-		"credentialDocumentation": [],
-		"primaryDocumentation": []
-	}
+		"credentialDocumentation": [
+			{
+				"url": "https://docs.apify.com/platform/integrations/n8n"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://docs.apify.com/"
+			}
+		],
+		"generic": [
+			{
+				"label": "Website Content Crawler — Actor Store page",
+				"icon": "🕷️",
+				"url": "https://apify.com/apify/website-content-crawler"
+			},
+			{
+				"label": "What is the Apify platform?",
+				"icon": "ℹ️",
+				"url": "https://docs.apify.com/platform"
+			},
+			{
+				"label": "Actors - serverless cloud programs",
+				"icon": "⚙️",
+				"url": "https://docs.apify.com/platform/actors"
+			},
+			{
+				"label": "Apify API v2 - REST reference",
+				"icon": "🔌",
+				"url": "https://docs.apify.com/api/v2"
+			},
+			{
+				"label": "SDKs for JavaScript and Python",
+				"icon": "🧰",
+				"url": "https://docs.apify.com/sdk"
+			}
+		]
+	},
+	"alias": [
+		"apify",
+		"wcc",
+		"website content crawler",
+		"site crawler",
+		"scraping",
+		"text extraction",
+		"markdown",
+		"sitemap",
+		"rag",
+		"ai agent",
+		"seo",
+		"content",
+		"scraper"
+	]
 }

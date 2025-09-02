@@ -5,7 +5,7 @@ export class ApifyApi implements ICredentialType {
 
 	displayName = 'Apify API';
 
-	documentationUrl = 'https://docs.apify.com/platform/integrations/api#api-token';
+	documentationUrl = 'https://docs.apify.com/platform/integrations/n8n';
 
 	properties: INodeProperties[] = [
 		{
