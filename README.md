@@ -81,7 +81,7 @@ n8n start
 
 This configuration is required for our service's trigger functionality to work correctly.
 
-By default, when running locally n8n generates webhook URLs using `localhost`, which external services cannot reach. To fix this:
+By default, when running n8n locally, it generates webhook URLs using `localhost`, which external services cannot reach. To fix this:
 
 1. **Set your webhook URL**  
 In the same shell or Docker environment where n8n runs, export the `WEBHOOK_URL` to a publicly-accessible address. For example:
@@ -122,13 +122,13 @@ This node has been tested with n8n version 1.57.0.
 
 ## Usage
 
-You can use this node in various workflows. It is espacially useful for extracting content from websites for LLMs and other AI applications.
+You can use this node in various workflows. It is especially useful for extracting content from websites for LLMs and other AI applications.
 
 1. **Set up a workflow**: Create a new workflow in n8n.
 2. **Add AI Agent node**: Add an AI Agent node to your workflow to process or analyze the extracted content.
-3. **Add Website Content Crawler node**: Insert the node into your workflow and connect it as AI Agent tool.
-4. **Configure credentials**: Enter your Apify API or use Apify OAuth flow.
-6. **Execute the workflow**: Run the workflow using chat interface.
+3. **Add Website Content Crawler node**: Insert the node into your workflow and connect it as an AI Agent tool.
+4. **Configure credentials**: Enter your Apify API key or use Apify OAuth flow.
+5. **Execute the workflow**: Run the workflow using the chat interface.
 
 ![workflow](./docs/uc.png)
 
