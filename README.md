@@ -1,8 +1,10 @@
 # n8n Nodes - Apify integration
 
-This is an n8n community node that integrates [Apify](https://apify.com) with your n8n workflows, so you can run Apify Actors, extract structured data from websites, and automate complex web scraping tasks.
+This is an n8n community node that integrates [Apify](https://apify.com) [Website Content Crawler](https://apify.com/apify/website-content-crawler) with your n8n workflows. 
 
-[Apify](https://apify.com) is a platform for developers to build, deploy, and publish web automation tools, while [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) tool for AI workflow automation that allows you to connect various services.
+Use this node to run the Website Content Crawler, configure its input, and fetch results directly in your workflows.
+
+[Website Content Crawler](https://apify.com/apify/website-content-crawler) is an Apify Actor that can perform a deep crawl of one or more websites and extract text content from the web pages. It is useful to download data from websites such as documentation, knowledge bases, help sites, or blogs.
 
 ## Table of contents
 
@@ -94,49 +96,12 @@ In the same shell or Docker environment where n8n runs, export the `WEBHOOK_URL`
 
 ## Operations
 
-![operations](./docs/actions.png)
+![operations](./docs/operations.png)
 
-This node supports a wide range of Apify operations, organized by resource type:
+This node integrates the Apify Website Content Crawler Actor and supports running the Apify Actor with custom input.
 
-### Actors
-- **Run Actor**: Execute an Actor with optional input parameters
-  - **Default behavior**: Uses predefined input values
-  - **Custom input**: Provide JSON object to override any or all default parameters.
-  - Configurable timeout and memory limits
-  - Build version selection
-- **Scrape Single URL**: Quick scraping of a single URL
-- **Get Last Run**: Retrieve information about the most recent Actor run
-
-![actor run](./docs/run-actor.png)
-
-### Actor tasks
-- **Run Task**: Execute a predefined Actor task
-  - Supports custom input JSON
-  - Configurable timeout
-  - Task-specific settings
-
-### Actor runs
-- **Get User Runs List**: List all runs for a user
-  - Pagination support
-  - Sorting options
-  - Status filtering
-- **Get run**: Retrieve detailed information about a specific run
-
-### Datasets
-- **Get Items**: Fetch items from a dataset
-
-### Key-Value Stores
-- **Get Key-Value Store Record**: Retrieve a specific record by key
-
-### Triggers
-  Automatically start an n8n workflow whenever an Actor or task finishes execution
-  - Can be configured to trigger on success, failure, abort, timeout or any combination of these states
-  - Includes run metadata in the output
-  - Available triggers: 
-    - **Actor Run Finished**: Start a workflow when an Actor run completes
-    - **Task Run Finished**: Start a workflow when a task run completes
-
-![triggers](./docs/trigger.png)
+### Run Crawler
+Execute a Website Content Crawler with optional input parameters
 
 ## Credentials
 
@@ -148,7 +113,7 @@ The node supports two authentication methods:
 2. **OAuth2 authentication** (available only in n8n cloud)
    - Configure OAuth2 credentials in the n8n credentials section under `apifyOAuth2Api`
 
-![auth](./docs/auth.png)
+![auth](./docs/credentials.png)
 
 
 ## Compatibility
@@ -157,17 +122,19 @@ This node has been tested with n8n version 1.57.0.
 
 ## Usage
 
-1. **Create an Actor**: Set up a new Actor on [Apify](https://apify.com).
-2. **Set up a workflow**: Create a new workflow in n8n.
-3. **Add the Apify node**: Insert the Apify node into your workflow.
-4. **Configure credentials**: Enter your Apify API key and Actor ID.
-5. **Select an operation**: Choose the desired operation for the node.
-6. **Execute the workflow**: Run the workflow to execute the Apify operation.
+You can use this node in various workflows. It is espacially useful for extracting content from websites for LLMs and other AI applications.
 
-![workflow](./docs/workflow.png)
+1. **Set up a workflow**: Create a new workflow in n8n.
+2. **Add AI Agent node**: Add an AI Agent node to your workflow to process or analyze the extracted content.
+3. **Add Website Content Crawler node**: Insert the node into your workflow and connect it as AI Agent tool.
+4. **Configure credentials**: Enter your Apify API or use Apify OAuth flow.
+6. **Execute the workflow**: Run the workflow using chat interface.
+
+![workflow](./docs/uc.png)
 
 ## Resources
 
+- [Apify Website Content Crawler](https://apify.com/apify/website-content-crawler)
 - [n8n Community Nodes Documentation](https://docs.n8n.io/integrations/community-nodes/)
 - [Apify API Documentation](https://docs.apify.com)
 
