@@ -60,23 +60,33 @@ export class ApifyContentCrawler implements INodeType {
 
 	methods = methods;
 
-	async execute(this: IExecuteFunctions) {
+	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
-			const data = await actorsRouter.call(this, i);
+			try {
+				const data = await actorsRouter.call(this, i);
 
-			// Ensure each output item is linked to its input item
-			const addPairedItem = (item: INodeExecutionData) => ({
-				...item,
-				pairedItem: { item: i },
-			});
+				const addPairedItem = (item: INodeExecutionData) => ({
+					...item,
+					pairedItem: { item: i },
+				});
 
-			if (Array.isArray(data)) {
-				returnData.push(...data.map(addPairedItem));
-			} else {
-				returnData.push(addPairedItem(data));
+				if (Array.isArray(data)) {
+					returnData.push(...data.map(addPairedItem));
+				} else {
+					returnData.push(addPairedItem(data));
+				}
+			} catch (error) {
+				if (this.continueOnFail()) {
+					returnData.push({
+						json: { error: error.message },
+						pairedItem: { item: i },
+					});
+					continue;
+				}
+				throw error;
 			}
 		}
 
