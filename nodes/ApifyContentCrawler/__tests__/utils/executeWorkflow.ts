@@ -24,12 +24,7 @@ export const executeWorkflow = async ({
 	// Minimal fake executeFunctions
 	const fakeExecuteFunctions = {
 		getCredentials: async (name: string) => {
-			return credentialsHelper.getDecrypted(
-				{} as any,
-				{ name } as any,
-				name,
-				'manual',
-			);
+			return credentialsHelper.getDecrypted({} as any, { name } as any, name, 'manual');
 		},
 		getNodeParameter: (parameterName: string) => {
 			return node.parameters[parameterName];

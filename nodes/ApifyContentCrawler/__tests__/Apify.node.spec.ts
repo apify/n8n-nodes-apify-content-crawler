@@ -38,34 +38,34 @@ describe('Apify Node', () => {
 			const mockResultDataset = fixtures.getDatasetItems();
 
 			const tests = [
-			{
-				name: 'Advanced Workflow',
-				workflowJsonName: 'run-actor-advanced.workflow.json',
-				nodeName: 'Crawl a Website (Advanced Settings)',
-			},
+				{
+					name: 'Advanced Workflow',
+					workflowJsonName: 'run-actor-advanced.workflow.json',
+					nodeName: 'Crawl a Website (Advanced Settings)',
+				},
 			];
 
 			test.each(tests)(
-			'$name should run the WCC actor correctly',
-			async ({ workflowJsonName, nodeName }) => {
-				const workflow = require(`./workflows/actors/${workflowJsonName}`);
-				const { executionData } = await executeWorkflow({
-				credentialsHelper,
-				workflow,
-				});
+				'$name should run the WCC actor correctly',
+				async ({ workflowJsonName, nodeName }) => {
+					const workflow = require(`./workflows/actors/${workflowJsonName}`);
+					const { executionData } = await executeWorkflow({
+						credentialsHelper,
+						workflow,
+					});
 
-				const nodeResults = getRunTaskDataByNodeName(executionData, nodeName);
-				expect(nodeResults.length).toBe(1);
+					const nodeResults = getRunTaskDataByNodeName(executionData, nodeName);
+					expect(nodeResults.length).toBe(1);
 
-				const [nodeResult] = nodeResults;
-				expect(nodeResult.executionStatus).toBe('success');
+					const [nodeResult] = nodeResults;
+					expect(nodeResult.executionStatus).toBe('success');
 
-				const data = getTaskData(nodeResult);
-				expect(typeof data).toBe('object');
+					const data = getTaskData(nodeResult);
+					expect(typeof data).toBe('object');
 
-				expect(data).toEqual(mockResultDataset[0]);
-			},
-		);
+					expect(data).toEqual(mockResultDataset[0]);
+				},
+			);
 		});
 	});
 });
