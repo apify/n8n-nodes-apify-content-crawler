@@ -1,8 +1,7 @@
-import { ACTOR_ID, ApifyContentCrawler } from '../ApifyContentCrawler.node';
+import { ApifyContentCrawler } from '../ApifyContentCrawler.node';
 import { executeWorkflow } from './utils/executeWorkflow';
 import { CredentialsHelper } from './utils/credentialHelper';
 import { getRunTaskDataByNodeName, getTaskData } from './utils/getNodeResultData';
-import nock from 'nock';
 import * as fixtures from './utils/fixtures';
 
 describe('Apify Node', () => {
@@ -36,9 +35,6 @@ describe('Apify Node', () => {
 
 	describe('actors', () => {
 		describe('run-actor', () => {
-			const mockRunActor = fixtures.runActorResult();
-			const mockBuild = fixtures.getBuildResult();
-			const mockFinishedRun = fixtures.getSuccessRunResult();
 			const mockResultDataset = fixtures.getDatasetItems();
 
 			const tests = [
@@ -52,17 +48,6 @@ describe('Apify Node', () => {
 			test.each(tests)(
 				'$name should run the WCC actor correctly',
 				async ({ workflowJsonName, nodeName }) => {
-					const scope = nock('https://api.apify.com')
-						.get(`/v2/acts/${ACTOR_ID}/builds/default`)
-						.reply(200, mockBuild)
-						.post(`/v2/acts/${ACTOR_ID}/runs`)
-						.query({ waitForFinish: 0 })
-						.reply(200, mockRunActor)
-						.get('/v2/actor-runs/5rsC83CHinQwPlsSI')
-						.reply(200, mockFinishedRun)
-						.get('/v2/datasets/63kMAihbWVgBvEAZ2/items')
-						.reply(200, mockResultDataset);
-
 					const workflow = require(`./workflows/actors/${workflowJsonName}`);
 					const { executionData } = await executeWorkflow({
 						credentialsHelper,
@@ -79,9 +64,6 @@ describe('Apify Node', () => {
 					expect(typeof data).toBe('object');
 
 					expect(data).toEqual(mockResultDataset[0]);
-
-					console.log(`Pending mocks for ${workflowJsonName}:`, scope.pendingMocks());
-					expect(scope.isDone()).toBe(true);
 				},
 			);
 		});

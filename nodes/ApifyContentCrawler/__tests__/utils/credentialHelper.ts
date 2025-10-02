@@ -1,30 +1,33 @@
-import { Credentials } from 'n8n-core';
+// utils/credentialHelper.ts
 import {
 	ICredentialDataDecryptedObject,
 	ICredentialsHelper,
-	IHttpRequestHelper,
-	IHttpRequestOptions,
-	INode,
-	INodeCredentialsDetails,
-	ICredentials,
 	INodeProperties,
-	IWorkflowExecuteAdditionalData,
-	WorkflowExecuteMode,
-	IExecuteData,
-	ICredentialsExpressionResolveValues,
-	Workflow,
+	IHttpRequestOptions,
+	IHttpRequestHelper,
 	IRequestOptionsSimplified,
+	INode,
+	Workflow,
 } from 'n8n-workflow';
 
-export class CredentialsHelper extends ICredentialsHelper {
-	private credentials: Record<string, ICredentialDataDecryptedObject>;
-
-	constructor(credentials: Record<string, ICredentialDataDecryptedObject>) {
-		super();
-		this.credentials = credentials;
-	}
+export class CredentialsHelper implements ICredentialsHelper {
+	constructor(private credentials: Record<string, ICredentialDataDecryptedObject>) {}
 
 	getParentTypes(name: string): string[] {
+		return [];
+	}
+
+	async getDecrypted(): Promise<ICredentialDataDecryptedObject> {
+		return this.credentials['apifyApi'];
+	}
+
+	async getCredentials(): Promise<any> {
+		return {};
+	}
+
+	async updateCredentials(): Promise<void> {}
+
+	getCredentialsProperties(type: string): INodeProperties[] {
 		return [];
 	}
 
@@ -35,6 +38,7 @@ export class CredentialsHelper extends ICredentialsHelper {
 		workflow: Workflow,
 		node: INode,
 	): Promise<IHttpRequestOptions> {
+		// For testing, just return requestOptions as-is
 		return requestOptions as IHttpRequestOptions;
 	}
 
@@ -46,34 +50,5 @@ export class CredentialsHelper extends ICredentialsHelper {
 		credentialsExpired: boolean,
 	): Promise<ICredentialDataDecryptedObject | undefined> {
 		return undefined;
-	}
-
-	async getCredentials(
-		nodeCredentials: INodeCredentialsDetails,
-		type: string,
-	): Promise<ICredentials> {
-		return new Credentials({ id: null, name: '' }, '', '');
-	}
-
-	async getDecrypted(
-		additionalData: IWorkflowExecuteAdditionalData,
-		nodeCredentials: INodeCredentialsDetails,
-		type: string,
-		mode: WorkflowExecuteMode,
-		executeData?: IExecuteData,
-		raw?: boolean,
-		expressionResolveValues?: ICredentialsExpressionResolveValues,
-	): Promise<ICredentialDataDecryptedObject> {
-		return this.credentials[type];
-	}
-
-	async updateCredentials(
-		nodeCredentials: INodeCredentialsDetails,
-		type: string,
-		data: ICredentialDataDecryptedObject,
-	): Promise<void> {}
-
-	getCredentialsProperties(type: string): INodeProperties[] {
-		return [];
 	}
 }
