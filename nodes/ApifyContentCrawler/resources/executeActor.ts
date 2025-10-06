@@ -1,12 +1,11 @@
 import { IExecuteFunctions, INodeExecutionData, NodeApiError } from 'n8n-workflow';
-import { apiRequest, getResults, pollRunStatus, isUsedAsAiTool } from './genericFunctions';
+import { apiRequest, getResults, pollRunStatus } from './genericFunctions';
 
 export async function getDefaultBuild(this: IExecuteFunctions, actorId: string) {
 	const defaultBuildResp = await apiRequest.call(this, {
 		method: 'GET',
 		uri: `/v2/acts/${actorId}/builds/default`,
-	},
-	isUsedAsAiTool(this.getNode().type));
+	});
 	if (!defaultBuildResp?.data) {
 		throw new NodeApiError(this.getNode(), {
 			message: `Could not fetch default build for actor ${actorId}`,
@@ -45,8 +44,7 @@ export async function runActorApi(
 		uri: `/v2/acts/${actorId}/runs`,
 		body: mergedInput,
 		qs,
-	},
-	isUsedAsAiTool(this.getNode().type));
+	});
 }
 
 export async function executeActorRunFlow(

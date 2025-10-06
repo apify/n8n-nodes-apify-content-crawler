@@ -17,7 +17,6 @@ type IApiRequestOptions = IRequestOptions & { uri?: string };
 export async function apiRequest(
 	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
 	requestOptions: IApiRequestOptions,
-	isCalledFromAiTool: boolean
 ): Promise<any> {
 	const { method, qs, uri, ...rest } = requestOptions;
 
@@ -29,7 +28,7 @@ export async function apiRequest(
 		'x-apify-integration-app-id': 'website-content-crawler-app',
 	};
 
-	if (isCalledFromAiTool) {
+	if (isUsedAsAiTool(this.getNode().type)) {
 		headers['x-apify-integration-ai-tool'] = 'true';
 	}
 
@@ -87,7 +86,7 @@ export async function apiRequestAllItems(
 	let responseData;
 
 	do {
-		responseData = await apiRequest.call(this, requestOptions, isUsedAsAiTool(this.getNode().type));
+		responseData = await apiRequest.call(this, requestOptions);
 		returnData.push(responseData);
 	} while (requestOptions.qs.limit <= responseData.length);
 
@@ -139,8 +138,7 @@ export async function pollRunStatus(
 			const pollResult = await apiRequest.call(this, {
 				method: 'GET',
 				uri: `/v2/actor-runs/${runId}`,
-			},
-			isUsedAsAiTool(this.getNode().type));
+			});
 			
 			const status = pollResult?.data?.status;
 			lastRunData = pollResult?.data;
@@ -161,8 +159,7 @@ export async function getResults(this: IExecuteFunctions, datasetId: string): Pr
 	let results = await apiRequest.call(this, {
 		method: 'GET',
 		uri: `/v2/datasets/${datasetId}/items`,
-	},
-	isUsedAsAiTool(this.getNode().type));
+	});
 
 	// If used as a tool from an AI Agent, only return markdown results
 	// This reduces the token amount more than half
