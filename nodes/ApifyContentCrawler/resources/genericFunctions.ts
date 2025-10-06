@@ -139,7 +139,7 @@ export async function pollRunStatus(
 				method: 'GET',
 				uri: `/v2/actor-runs/${runId}`,
 			});
-			
+
 			const status = pollResult?.data?.status;
 			lastRunData = pollResult?.data;
 			if (['SUCCEEDED', 'FAILED', 'TIMED-OUT', 'ABORTED'].includes(status)) {
