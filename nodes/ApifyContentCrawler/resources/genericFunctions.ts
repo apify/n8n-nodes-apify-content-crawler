@@ -13,16 +13,25 @@ type IApiRequestOptions = IRequestOptions & { uri?: string };
 
 /**
  * Make an API request to Apify
- *
  */
 export async function apiRequest(
 	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
 	requestOptions: IApiRequestOptions,
+	isCalledFromAiTool: boolean
 ): Promise<any> {
 	const { method, qs, uri, ...rest } = requestOptions;
 
 	const query = qs || {};
 	const endpoint = `https://api.apify.com${uri}`;
+
+	const headers: Record<string, string> = {
+		'x-apify-integration-platform': 'n8n',
+		'x-apify-integration-app-id': 'website-content-crawler-app',
+	};
+
+	if (isCalledFromAiTool) {
+		headers['x-apify-integration-ai-tool'] = 'true';
+	}
 
 	const options: IRequestOptions = {
 		json: true,
@@ -30,10 +39,7 @@ export async function apiRequest(
 		method,
 		qs: query,
 		url: endpoint,
-		headers: {
-			'x-apify-integration-platform': 'n8n',
-			'x-apify-integration-app-id': 'website-content-crawler-app',
-		},
+		headers,
 	};
 
 	if (method === 'GET') {
@@ -42,6 +48,7 @@ export async function apiRequest(
 
 	try {
 		const authenticationMethod = this.getNodeParameter('authentication', 0) as string;
+
 		try {
 			await this.getCredentials(authenticationMethod);
 		} catch {
@@ -53,10 +60,7 @@ export async function apiRequest(
 
 		return await this.helpers.requestWithAuthentication.call(this, authenticationMethod, options);
 	} catch (error) {
-		/**
-		 * using `error instanceof NodeApiError` results in `false`
-		 * because it's thrown by a different instance of n8n-workflow
-		 */
+		// Re-throw structured error for n8n
 		if (error instanceof NodeApiError) {
 			throw error;
 		}
@@ -83,7 +87,7 @@ export async function apiRequestAllItems(
 	let responseData;
 
 	do {
-		responseData = await apiRequest.call(this, requestOptions);
+		responseData = await apiRequest.call(this, requestOptions, isUsedAsAiTool(this.getNode().type));
 		returnData.push(responseData);
 	} while (requestOptions.qs.limit <= responseData.length);
 
@@ -135,7 +139,9 @@ export async function pollRunStatus(
 			const pollResult = await apiRequest.call(this, {
 				method: 'GET',
 				uri: `/v2/actor-runs/${runId}`,
-			});
+			},
+			isUsedAsAiTool(this.getNode().type));
+			
 			const status = pollResult?.data?.status;
 			lastRunData = pollResult?.data;
 			if (['SUCCEEDED', 'FAILED', 'TIMED-OUT', 'ABORTED'].includes(status)) {
@@ -155,7 +161,8 @@ export async function getResults(this: IExecuteFunctions, datasetId: string): Pr
 	let results = await apiRequest.call(this, {
 		method: 'GET',
 		uri: `/v2/datasets/${datasetId}/items`,
-	});
+	},
+	isUsedAsAiTool(this.getNode().type));
 
 	// If used as a tool from an AI Agent, only return markdown results
 	// This reduces the token amount more than half
