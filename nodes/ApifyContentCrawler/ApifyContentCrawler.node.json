@@ -11,12 +11,13 @@
 		],
 		"primaryDocumentation": [
 			{
-				"url": "https://docs.apify.com/"
+				"url": "https://docs.apify.com/platform/integrations/n8n/website-content-crawler"
 			}
 		]
 	},
 	"alias": [
 		"apify",
+		"actor",
 		"wcc",
 		"llm",
 		"bright",
