@@ -13,7 +13,6 @@ type IApiRequestOptions = IRequestOptions & { uri?: string };
 
 /**
  * Make an API request to Apify
- *
  */
 export async function apiRequest(
 	this: IHookFunctions | IExecuteFunctions | ILoadOptionsFunctions,
@@ -24,16 +23,22 @@ export async function apiRequest(
 	const query = qs || {};
 	const endpoint = `https://api.apify.com${uri}`;
 
+	const headers: Record<string, string> = {
+		'x-apify-integration-platform': 'n8n',
+		'x-apify-integration-app-id': 'website-content-crawler-app',
+	};
+
+	if (isUsedAsAiTool(this.getNode().type)) {
+		headers['x-apify-integration-ai-tool'] = 'true';
+	}
+
 	const options: IRequestOptions = {
 		json: true,
 		...rest,
 		method,
 		qs: query,
 		url: endpoint,
-		headers: {
-			'x-apify-integration-platform': 'n8n',
-			'x-apify-integration-app-id': 'website-content-crawler-app',
-		},
+		headers,
 	};
 
 	if (method === 'GET') {
@@ -42,6 +47,7 @@ export async function apiRequest(
 
 	try {
 		const authenticationMethod = this.getNodeParameter('authentication', 0) as string;
+
 		try {
 			await this.getCredentials(authenticationMethod);
 		} catch {
@@ -53,10 +59,7 @@ export async function apiRequest(
 
 		return await this.helpers.requestWithAuthentication.call(this, authenticationMethod, options);
 	} catch (error) {
-		/**
-		 * using `error instanceof NodeApiError` results in `false`
-		 * because it's thrown by a different instance of n8n-workflow
-		 */
+		// Re-throw structured error for n8n
 		if (error instanceof NodeApiError) {
 			throw error;
 		}
@@ -136,6 +139,7 @@ export async function pollRunStatus(
 				method: 'GET',
 				uri: `/v2/actor-runs/${runId}`,
 			});
+
 			const status = pollResult?.data?.status;
 			lastRunData = pollResult?.data;
 			if (['SUCCEEDED', 'FAILED', 'TIMED-OUT', 'ABORTED'].includes(status)) {
