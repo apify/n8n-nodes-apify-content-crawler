@@ -80,3 +80,13 @@ jobs:
             echo "Publishing @apify/n8n-nodes-apify-content-crawler@${{ env.VERSION }} to npm..."
             pnpm publish --access public --no-git-checks
           fi
+
+      # Post-publish Marketplace compliance check
+      - name: Run n8n Community Package Scan
+        run: |
+          echo "📦 @apify/n8n-nodes-apify-content-crawler@${{ env.VERSION }} has been published to npm."
+          echo "🔍 Running n8n Marketplace compliance scan..."
+          npx @n8n/scan-community-package @apify/n8n-nodes-apify-content-crawler || (
+            echo "❌ Scan failed — but note: the package has already been released to npm."
+            exit 1
+          )

@@ -41,7 +41,7 @@ export const executeWorkflow = async ({
 			return node;
 		},
 		helpers: {
-			requestWithAuthentication: async function (
+			httpRequestWithAuthentication: async function (
 				this: IExecuteFunctions,
 				_credentialType: string,
 				options: any,
