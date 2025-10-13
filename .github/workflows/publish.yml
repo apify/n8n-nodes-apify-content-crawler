@@ -81,7 +81,7 @@ jobs:
             pnpm publish --access public --no-git-checks
           fi
 
-      # ✅ New step: Post-publish Marketplace compliance check
+      # Post-publish Marketplace compliance check
       - name: Run n8n Community Package Scan
         run: |
           echo "📦 @apify/n8n-nodes-apify-content-crawler@${{ env.VERSION }} has been published to npm."
