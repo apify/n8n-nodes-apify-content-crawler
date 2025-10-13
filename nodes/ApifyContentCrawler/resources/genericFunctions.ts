@@ -7,6 +7,7 @@ import {
 	type IHookFunctions,
 	type ILoadOptionsFunctions,
 	type IRequestOptions,
+	type IHttpRequestOptions
 } from 'n8n-workflow';
 
 type IApiRequestOptions = IRequestOptions & { uri?: string };
@@ -32,7 +33,8 @@ export async function apiRequest(
 		headers['x-apify-integration-ai-tool'] = 'true';
 	}
 
-	const options: IRequestOptions = {
+	// @ts-ignore
+	const options: IHttpRequestOptions = {
 		json: true,
 		...rest,
 		method,
@@ -57,7 +59,7 @@ export async function apiRequest(
 			);
 		}
 
-		return await this.helpers.requestWithAuthentication.call(this, authenticationMethod, options);
+		return await this.helpers.httpRequestWithAuthentication.call(this, authenticationMethod, options);
 	} catch (error) {
 		// Re-throw structured error for n8n
 		if (error instanceof NodeApiError) {
