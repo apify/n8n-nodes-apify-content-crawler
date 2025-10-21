@@ -31,7 +31,7 @@ export class ApifyApi implements ICredentialType {
 		},
 	};
 
-		/**
+	/**
 	 * Simple credential test to verify Apify API key
 	 */
 	test: ICredentialTestRequest = {
