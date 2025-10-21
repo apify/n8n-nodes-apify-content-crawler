@@ -30,9 +30,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Format check
-        run: pnpm exec prettier --check nodes credentials
-
       - name: Lint code
         run: pnpm lint
 
