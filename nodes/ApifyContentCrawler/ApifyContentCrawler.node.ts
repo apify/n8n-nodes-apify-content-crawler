@@ -1,6 +1,3 @@
-/* eslint-disable n8n-nodes-base/node-class-description-outputs-wrong */
-/* eslint-disable n8n-nodes-base/node-class-description-inputs-wrong-regular-node */
-
 import {
 	IExecuteFunctions,
 	INodeExecutionData,
@@ -18,7 +15,10 @@ export class ApifyContentCrawler implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Website Content Crawler by Apify',
 		name: 'apifyContentCrawler',
-		icon: 'file:apify.svg',
+		icon: {
+			dark: 'file:./apifyDark.svg',
+			light: 'file:./apify.svg'
+		},
 		group: ['transform'],
 		// Mismatched version and defaultVersion as a minor hack to hide "Custom API Call" resource
 		version: [1],
@@ -29,8 +29,8 @@ export class ApifyContentCrawler implements INodeType {
 		defaults: {
 			name: 'Website Content Crawler by Apify',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'] as NodeConnectionType[],
+		outputs: ['main'] as NodeConnectionType[],
 		usableAsTool: true,
 		credentials: [
 			{

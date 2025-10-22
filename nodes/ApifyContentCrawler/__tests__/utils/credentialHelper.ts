@@ -1,4 +1,3 @@
-// utils/credentialHelper.ts
 import {
 	ICredentialDataDecryptedObject,
 	ICredentialsHelper,
@@ -26,6 +25,10 @@ export class CredentialsHelper implements ICredentialsHelper {
 	}
 
 	async updateCredentials(): Promise<void> {}
+
+	async updateCredentialsOauthTokenData(): Promise<void> {
+		return
+	}
 
 	getCredentialsProperties(type: string): INodeProperties[] {
 		return [];
