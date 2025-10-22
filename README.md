@@ -27,55 +27,13 @@ Use this node to run the Website Content Crawler, configure its input, and fetch
 
 ---
 
-### 1. Initialize n8n locally
-
-Begin by installing and running n8n to create the necessary configuration directory (`~/.n8n`):
-
-```bash
-npm install -g n8n # Skip this step if you already have n8n installed globally
-n8n start # This will generate the ~/.n8n directory
-```
-
-### 2. Clone and build the Node Package
-
-Install dependencies and build the node:
+### 1. Running n8n locally
+Just run the commands below, it will come with hot reloding.
 
 ```bash
-pnpm install
-pnpm run build
+npm i
+npm run dev
 ```
-
-### 3. Link the custom node to n8n
-
-Create the `custom` directory inside `~/.n8n` (if it doesn't exist), then symlink your local node package:
-
-```bash
-mkdir -p ~/.n8n/custom
-ln -s /full/path/to/n8n-nodes-apify-content-crawler ~/.n8n/custom/n8n-nodes-apify-content-crawler # replace full/path/to with the path to your n8n-nodes-apify-content-crawler directory
-```
-
-> **Note:** Use the absolute path in the symlink for compatibility.
-
-### 4. Restart n8n
-
-Now that your custom node is linked, start n8n again:
-
-```bash
-n8n start
-```
-
----
-
-### 🔁 Making changes
-
-If you make any changes to your custom node locally, remember to rebuild and restart:
-
-```bash
-pnpm run build
-n8n start
-```
-
----
 
 ## Self-hosted n8n: Public webhook URL for triggers
 
@@ -90,8 +48,7 @@ In the same shell or Docker environment where n8n runs, export the `WEBHOOK_URL`
   ```
 2. **Restart n8n** 
   ```bash
-  pnpm run build
-  n8n start
+  npm run dev
   ```
 
 ## Operations
