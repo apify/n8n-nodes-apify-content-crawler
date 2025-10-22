@@ -1,6 +1,3 @@
- 
- 
-
 import {
 	IExecuteFunctions,
 	INodeExecutionData,
@@ -29,8 +26,8 @@ export class ApifyContentCrawler implements INodeType {
 		defaults: {
 			name: 'Website Content Crawler by Apify',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'] as NodeConnectionType[],
+		outputs: ['main'] as NodeConnectionType[],
 		usableAsTool: true,
 		credentials: [
 			{
