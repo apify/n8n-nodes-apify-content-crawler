@@ -27,7 +27,7 @@ Use this node to run the Website Content Crawler, configure its input, and fetch
 ---
 
 ### 1. Running n8n locally
-Just run the commands below, it will come with hot reloding.
+Just run the commands below, it will come with hot reloading.
 
 ```bash
 npm i

@@ -23,7 +23,7 @@
 	"engines": {
 		"node": ">=18.10"
 	},
-	"packageManager": "pnpm@9.1.4",
+	"packageManager": "npm@10.8.2",
 	"main": "index.js",
 	"scripts": {
 		"build": "n8n-node build",
