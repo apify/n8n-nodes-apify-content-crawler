@@ -15,7 +15,10 @@ export class ApifyContentCrawler implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Website Content Crawler by Apify',
 		name: 'apifyContentCrawler',
-		icon: 'file:apify.svg',
+		icon: {
+			dark: 'file:./apifyDark.svg',
+			light: 'file:./apify.svg'
+		},
 		group: ['transform'],
 		// Mismatched version and defaultVersion as a minor hack to hide "Custom API Call" resource
 		version: [1],
