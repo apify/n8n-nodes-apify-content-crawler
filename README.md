@@ -23,7 +23,6 @@ Use this node to run the Website Content Crawler, configure its input, and fetch
 ### ⚙️ Prerequisites
 
 - Node.js (recommended: v18.10+)
-- pnpm installed globally
 
 ---
 
@@ -188,7 +187,7 @@ Regardless of how you create and publish the GitHub Release:
         1.  Code checkout.
         2.  Version extraction (`X.Y.Z`) from the release tag.
         3.  Build and test processes.
-        4.  Update `package.json` and `pnpm-lock.yaml` to version `X.Y.Z`.
+        4.  Update `package.json` and `package-lock.json` to version `X.Y.Z`.
         5.  Commit these version changes back to the branch the release was targeted from with a message like `chore(release): set version to X.Y.Z [skip ci]`.
         6.  Publish the package `@apify/n8n-nodes-apify-content-crawler@X.Y.Z` to npm.
 
@@ -196,7 +195,7 @@ Regardless of how you create and publish the GitHub Release:
     After the workflow successfully completes (check the "Actions" tab in your GitHub repository):
     * Verify the new version on npm:
         ```bash
-        pnpm view @apify/n8n-nodes-apify-content-crawler version
+        npm view @apify/n8n-nodes-apify-content-crawler version
         ```
         This should print `X.Y.Z`.
 
