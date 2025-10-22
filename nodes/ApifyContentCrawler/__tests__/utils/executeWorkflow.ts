@@ -86,6 +86,7 @@ export const executeWorkflow = async ({
 	const taskData: ITaskData = {
 		startTime: Date.now(),
 		executionTime: 1,
+		executionIndex: 0,
 		executionStatus: 'success',
 		data: { main: result as any },
 		source: [
