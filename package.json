@@ -1,6 +1,6 @@
 {
 	"name": "@apify/n8n-nodes-apify-content-crawler",
-	"version": "0.0.9",
+	"version": "0.0.8",
 	"description": "n8n nodes for Apify",
 	"keywords": [
 		"n8n-community-node-package",
@@ -32,9 +32,7 @@
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
 		"merge:api": "npx openapi-merge-cli --config ./openapi.config.json",
-		"test": "WEBHOOK_URL=https://localhost:5678 jest --config jest.config.js",
-		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease"
+		"test": "WEBHOOK_URL=https://localhost:5678 jest --config jest.config.js"
 	},
 	"files": [
 		"dist"
