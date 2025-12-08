@@ -13,7 +13,6 @@ Use this node to run the Website Content Crawler, configure its input, and fetch
 - [Credentials](#credentials)
 - [Compatibility](#compatibility)
 - [Usage](#usage)
-- [Resources](#resources)
 - [Release](#releasing-a-new-version)
 - [Version History](#version-history)
 - [Troubleshooting](#troubleshooting)
@@ -54,10 +53,10 @@ In the same shell or Docker environment where n8n runs, export the `WEBHOOK_URL`
 
 ![operations](./docs/operations.png)
 
-This node integrates the Apify Website Content Crawler Actor and supports running the Apify Actor with custom input.
+This node provides a single operation to run the Apify Website Content Crawler Actor with custom input parameters.
 
 ### Run Crawler
-Execute a Website Content Crawler with optional input parameters
+Execute the Website Content Crawler with optional input parameters to crawl websites and extract text content
 
 ## Credentials
 
@@ -88,8 +87,7 @@ You can use this node in various workflows. It is especially useful for extracti
 
 ![workflow](./docs/uc.png)
 
-## Resources
-
+For more information, see:
 - [Apify Website Content Crawler](https://apify.com/apify/website-content-crawler)
 - [n8n Community Nodes Documentation](https://docs.n8n.io/integrations/community-nodes/)
 - [Apify API Documentation](https://docs.apify.com)
@@ -209,14 +207,10 @@ Track changes and updates to the node here.
 
 1. **Authentication errors**
    - Verify your API key is correct
+   - Ensure your Apify account has access to the Website Content Crawler
 
-2. **Resource Not Found**
-   - Verify the resource ID format
-   - Check if the resource exists in your Apify account
-   - Ensure you have access to the resource
-
-3. **Operation failures**
-   - Check the input parameters
+2. **Crawler execution failures**
+   - Check the input parameters (URLs, crawler settings)
    - Verify resource limits (memory, timeout)
    - Review Apify Console for detailed error messages
 
