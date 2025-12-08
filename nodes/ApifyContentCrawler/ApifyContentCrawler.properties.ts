@@ -1,4 +1,4 @@
-import { INodeProperties } from 'n8n-workflow';
+import { IExecuteFunctions, INodeProperties } from 'n8n-workflow';
 
 const authenticationProperties: INodeProperties[] = [
 	{
@@ -103,3 +103,35 @@ export const actorProperties: INodeProperties[] = [
 
 
 export const properties: INodeProperties[] = [...actorProperties, ...authenticationProperties];
+
+export function buildActorInput(
+	this: IExecuteFunctions,
+	i: number,
+	defaultInput: Record<string, any>,
+): Record<string, any> {
+	const entries = this.getNodeParameter('entries', i, {}) as {
+		entry?: { value: string }[];
+	};
+	const crawlerType = this.getNodeParameter('crawlerType', i) as string;
+	const sitemapUrlsEnabled = this.getNodeParameter('sitemapUrlsEnabled', i) as boolean;
+	const maxDepth = this.getNodeParameter('maxDepth', i) as number;
+	const maxPages = this.getNodeParameter('maxPages', i) as number;
+
+	const mergedInput: Record<string, any> = {
+		...defaultInput,
+		crawlerType,
+		useSitemaps: sitemapUrlsEnabled,
+		maxCrawlDepth: maxDepth,
+		maxCrawlPages: maxPages,
+	};
+
+	delete mergedInput.startUrls;
+	if (entries?.entry?.length) {
+		mergedInput.startUrls = entries.entry.map((e) => ({
+			url: e.value,
+			method: 'GET',
+		}));
+	}
+
+	return mergedInput;
+}
