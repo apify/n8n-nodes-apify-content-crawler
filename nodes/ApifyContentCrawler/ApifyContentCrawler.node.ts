@@ -6,8 +6,7 @@ import {
 	NodeConnectionType,
 } from 'n8n-workflow';
 import { properties } from './ApifyContentCrawler.properties';
-import { methods } from './ApifyContentCrawler.methods';
-import { actorsRouter } from './resources/actors/router';
+import { runActor } from './helpers/executeActor';
 
 export const ACTOR_ID = 'aYG0l9s7dbB7j3gbS';
 
@@ -58,15 +57,13 @@ export class ApifyContentCrawler implements INodeType {
 		properties,
 	};
 
-	methods = methods;
-
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const data = await actorsRouter.call(this, i);
+				const data = await runActor.call(this, i);
 
 				const addPairedItem = (item: INodeExecutionData) => ({
 					...item,
