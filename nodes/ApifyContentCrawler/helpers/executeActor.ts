@@ -1,5 +1,7 @@
 import { IExecuteFunctions, INodeExecutionData, NodeApiError } from 'n8n-workflow';
 import { apiRequest, getResults, pollRunStatus } from './genericFunctions';
+import { ACTOR_ID } from '../ApifyContentCrawler.node';
+import { buildActorInput } from '../ApifyContentCrawler.properties';
 
 export async function getDefaultBuild(this: IExecuteFunctions, actorId: string) {
 	const defaultBuildResp = await apiRequest.call(this, {
@@ -47,12 +49,13 @@ export async function runActorApi(
 	});
 }
 
-export async function executeActorRunFlow(
-	this: IExecuteFunctions,
-	actorId: string,
-	mergedInput: Record<string, any>,
-): Promise<INodeExecutionData> {
-	const run = await runActorApi.call(this, actorId, mergedInput, { waitForFinish: 0 });
+export async function runActor(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
+	const build = await getDefaultBuild.call(this, ACTOR_ID);
+	const defaultInput = getDefaultInputsFromBuild(build);
+
+	const mergedInput = buildActorInput.call(this, i, defaultInput);
+
+	const run = await runActorApi.call(this, ACTOR_ID, mergedInput, { waitForFinish: 0 });
 	if (!run?.data?.id) {
 		throw new NodeApiError(this.getNode(), {
 			message: `Run ID not found after running the actor`,
@@ -67,3 +70,4 @@ export async function executeActorRunFlow(
 
 	return await getResults.call(this, datasetId);
 }
+
