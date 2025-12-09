@@ -22,12 +22,6 @@ const authenticationProperties: INodeProperties[] = [
 
 export const actorProperties: INodeProperties[] = [
 	{
-		displayName: 'Actor Source',
-		name: 'actorSource',
-		type: 'hidden',
-		default: 'recentlyUsed',
-	},
-	{
 		displayName: 'Start URLs',
 		name: 'entries',
 		type: 'fixedCollection',
