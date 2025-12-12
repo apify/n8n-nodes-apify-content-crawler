@@ -1,4 +1,5 @@
 import {
+	INodeType,
 	NodeApiError,
 	NodeOperationError,
 	sleep,
@@ -7,6 +8,8 @@ import {
 	type ILoadOptionsFunctions,
 	type IHttpRequestOptions,
 } from 'n8n-workflow';
+
+type IMethodModule = INodeType['methods'];
 
 /**
  * Extended request options for Apify API calls
@@ -224,4 +227,18 @@ export async function executeActorRun(
 	await pollRunStatus.call(this, runId);
 
 	return await getResults.call(this, datasetId);
+}
+
+/**
+ * Merge all methods from all modules into one object
+ * @param modules: IMethodModule[]
+ * @returns methods: INodeType['methods']
+ */
+export function aggregateNodeMethods(modules: IMethodModule[]): INodeType['methods'] {
+	return modules.reduce((methods, module) => {
+		return {
+			...methods,
+			...module,
+		};
+	}, {});
 }

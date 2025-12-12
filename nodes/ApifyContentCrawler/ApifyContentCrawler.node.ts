@@ -1,5 +1,5 @@
-/* eslint-disable n8n-nodes-base/node-class-description-outputs-wrong */
-/* eslint-disable n8n-nodes-base/node-class-description-inputs-wrong-regular-node */
+ 
+ 
 
 import {
 	IExecuteFunctions,
@@ -8,9 +8,7 @@ import {
 	INodeTypeDescription,
 	NodeConnectionType,
 } from 'n8n-workflow';
-import { properties } from './ApifyContentCrawler.properties';
-import { methods } from './ApifyContentCrawler.methods';
-import { router } from './resources/resources';
+import { router, methods, properties } from './resources/resources';
 
 export const ACTOR_ID = 'aYG0l9s7dbB7j3gbS';
 

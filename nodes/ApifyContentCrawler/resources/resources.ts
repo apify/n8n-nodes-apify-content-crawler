@@ -1,4 +1,4 @@
-/* eslint-disable n8n-nodes-base/node-param-options-type-unsorted-items */
+ 
 
 import {
 	IExecuteFunctions,
@@ -56,12 +56,34 @@ const operationSelect: INodeProperties = {
 // Set the default operation
 operationSelect.default = operations.length > 0 ? operations[0].value : '';
 
+// Authentication properties
+const authenticationProperties: INodeProperties[] = [
+	{
+		displayName: 'Authentication',
+		name: 'authentication',
+		type: 'options',
+		options: [
+			{
+				name: 'API Key',
+				value: 'apifyApi',
+			},
+			{
+				name: 'OAuth2',
+				value: 'apifyOAuth2Api',
+			},
+		],
+		default: 'apifyApi',
+		description: 'Choose which authentication method to use',
+	},
+];
+
 // Export properties
 export const properties: INodeProperties[] = [
 	...resourceSelect,
 	operationSelect,
 	...scrapeSingleProperties,
 	...scrapeMultipleProperties,
+	...authenticationProperties,
 ];
 
 // Export empty methods (no custom methods needed)
