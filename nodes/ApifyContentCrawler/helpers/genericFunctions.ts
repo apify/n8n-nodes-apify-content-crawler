@@ -8,6 +8,10 @@ import {
 	type IHttpRequestOptions,
 } from 'n8n-workflow';
 
+import { INodeType } from 'n8n-workflow';
+
+type IMethodModule = INodeType['methods'];
+
 /**
  * Extended request options for Apify API calls
  */
@@ -133,4 +137,18 @@ export async function getResults(this: IExecuteFunctions, datasetId: string): Pr
 	}
 
 	return this.helpers.returnJsonArray(results);
+}
+
+/**
+ * Merge all methods from all modules into one object
+ * @param modules: IMethodModule[]
+ * @returns methods: INodeType['methods']
+ */
+export function aggregateNodeMethods(modules: IMethodModule[]): INodeType['methods'] {
+	return modules.reduce((methods, module) => {
+		return {
+			...methods,
+			...module,
+		};
+	}, {});
 }
