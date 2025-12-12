@@ -1,4 +1,15 @@
-import { INodeProperties } from 'n8n-workflow';
+import { IExecuteFunctions, INodeExecutionData, INodeProperties, INodePropertyOptions } from 'n8n-workflow';
+import { executeActorRun } from '../../helpers/genericFunctions';
+import { ACTOR_ID } from '../../ApifyContentCrawler.node';
+
+export const name = 'Scrape multiple';
+
+export const option: INodePropertyOptions = {
+	name: 'Scrape Multiple',
+	value: 'Scrape multiple',
+	action: 'Scrape multiple URLs',
+	description: 'Crawl multiple starting URLs and extract content',
+};
 
 export const properties: INodeProperties[] = [
 	{
@@ -104,3 +115,29 @@ export const properties: INodeProperties[] = [
 		},
 	},
 ];
+
+export async function execute(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
+	const entries = this.getNodeParameter('entries', i, {}) as {
+		entry?: { value: string }[];
+	};
+	const crawlerType = this.getNodeParameter('crawlerType', i) as string;
+	const sitemapUrlsEnabled = this.getNodeParameter('sitemapUrlsEnabled', i) as boolean;
+	const maxDepth = this.getNodeParameter('maxDepth', i) as number;
+	const maxPages = this.getNodeParameter('maxPages', i) as number;
+
+	const actorInput: Record<string, any> = {
+		crawlerType,
+		useSitemaps: sitemapUrlsEnabled,
+		maxCrawlDepth: maxDepth,
+		maxCrawlPages: maxPages,
+	};
+
+	if (entries?.entry?.length) {
+		actorInput.startUrls = entries.entry.map((e) => ({
+			url: e.value,
+			method: 'GET',
+		}));
+	}
+
+	return await executeActorRun.call(this, ACTOR_ID, actorInput);
+}

@@ -1,3 +1,3 @@
-import { methods } from './resources';
+import { methods } from './resources/resources';
 
 export { methods };

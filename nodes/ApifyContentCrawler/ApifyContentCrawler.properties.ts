@@ -1,5 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
-import { properties as resources } from './resources';
+import { properties as resources } from './resources/resources';
 
 const authenticationProperties: INodeProperties[] = [
 	{

@@ -10,7 +10,7 @@ import {
 } from 'n8n-workflow';
 import { properties } from './ApifyContentCrawler.properties';
 import { methods } from './ApifyContentCrawler.methods';
-import { resourceRouter } from './resources/router';
+import { router } from './resources/resources';
 
 export const ACTOR_ID = 'aYG0l9s7dbB7j3gbS';
 
@@ -69,7 +69,7 @@ export class ApifyContentCrawler implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const data = await resourceRouter.call(this, i);
+				const data = await router.call(this, i);
 
 				const addPairedItem = (item: INodeExecutionData) => ({
 					...item,

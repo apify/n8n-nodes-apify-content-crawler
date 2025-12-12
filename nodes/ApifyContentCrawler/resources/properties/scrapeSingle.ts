@@ -1,4 +1,15 @@
-import { INodeProperties } from 'n8n-workflow';
+import { IExecuteFunctions, INodeExecutionData, INodeProperties, INodePropertyOptions } from 'n8n-workflow';
+import { executeActorRun } from '../../helpers/genericFunctions';
+import { ACTOR_ID } from '../../ApifyContentCrawler.node';
+
+export const name = 'Scrape single';
+
+export const option: INodePropertyOptions = {
+	name: 'Scrape Single',
+	value: 'Scrape single',
+	action: 'Scrape a single URL',
+	description: 'Crawl a single starting URL and extract content',
+};
 
 export const properties: INodeProperties[] = [
 	{
@@ -45,3 +56,25 @@ export const properties: INodeProperties[] = [
 		},
 	},
 ];
+
+export async function execute(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
+	const startUrl = this.getNodeParameter('startUrl', i) as string;
+	const crawlerType = this.getNodeParameter('crawlerType', i) as string;
+
+	const actorInput: Record<string, any> = {
+		crawlerType,
+		maxCrawlDepth: 1,
+		maxCrawlPages: 1,
+	};
+
+	if (startUrl) {
+		actorInput.startUrls = [
+			{
+				url: startUrl,
+				method: 'GET',
+			},
+		];
+	}
+
+	return await executeActorRun.call(this, ACTOR_ID, actorInput);
+}
