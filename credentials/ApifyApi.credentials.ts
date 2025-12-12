@@ -8,8 +8,8 @@ export class ApifyApi implements ICredentialType {
 	documentationUrl = 'https://docs.apify.com/platform/integrations/n8n';
 
 	icon: Icon = {
-		light: 'file:../nodes/ApifyContentCrawler/apify.svg',
-		dark: 'file:../nodes/ApifyContentCrawler/apifyDark.svg',
+		light: 'file:../nodes/ApifyContentCrawler/logo/apify.svg',
+		dark: 'file:../nodes/ApifyContentCrawler/logo/apifyDark.svg',
 	};
 
 	properties: INodeProperties[] = [
