@@ -79,11 +79,11 @@ const authenticationProperties: INodeProperties[] = [
 
 // Export properties
 export const properties: INodeProperties[] = [
+	...authenticationProperties,
 	...resourceSelect,
 	operationSelect,
 	...scrapeSingleProperties,
 	...scrapeMultipleProperties,
-	...authenticationProperties,
 ];
 
 // Export empty methods (no custom methods needed)
