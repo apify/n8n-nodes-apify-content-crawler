@@ -1,12 +1,15 @@
+/* eslint-disable n8n-nodes-base/node-class-description-outputs-wrong */
+/* eslint-disable n8n-nodes-base/node-class-description-inputs-wrong-regular-node */
+
 import {
 	IExecuteFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionType,
 } from 'n8n-workflow';
 import { properties } from './ApifyContentCrawler.properties';
-import { runActor } from './helpers/executeActor';
+import { methods } from './ApifyContentCrawler.methods';
+import { resourceRouter } from './resources/router';
 
 export const ACTOR_ID = 'aYG0l9s7dbB7j3gbS';
 
@@ -16,20 +19,20 @@ export class ApifyContentCrawler implements INodeType {
 		name: 'apifyContentCrawler',
 		icon: {
 			dark: 'file:./apifyDark.svg',
-			light: 'file:./apify.svg'
+			light: 'file:./apify.svg',
 		},
 		group: ['transform'],
 		// Mismatched version and defaultVersion as a minor hack to hide "Custom API Call" resource
 		version: [1],
 		defaultVersion: 1,
-		subtitle: 'Run Crawler',
+		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description:
 			'Crawl websites and extract text content to feed AI agents, LLM applications, vector databases, or RAG pipelines.',
 		defaults: {
 			name: 'Website Content Crawler by Apify',
 		},
-		inputs: ['main'] as NodeConnectionType[],
-		outputs: ['main'] as NodeConnectionType[],
+		inputs: ['main'],
+		outputs: ['main'],
 		usableAsTool: true,
 		credentials: [
 			{
@@ -57,13 +60,15 @@ export class ApifyContentCrawler implements INodeType {
 		properties,
 	};
 
+	methods = methods;
+
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const data = await runActor.call(this, i);
+				const data = await resourceRouter.call(this, i);
 
 				const addPairedItem = (item: INodeExecutionData) => ({
 					...item,
