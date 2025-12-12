@@ -39,28 +39,24 @@ export function buildActorInput(
 	i: number,
 	defaultInput: Record<string, any>,
 ): Record<string, any> {
-	const entries = this.getNodeParameter('entries', i, {}) as {
-		entry?: { value: string }[];
-	};
+	const startUrl = this.getNodeParameter('startUrl', i) as string;
 	const crawlerType = this.getNodeParameter('crawlerType', i) as string;
-	const sitemapUrlsEnabled = this.getNodeParameter('sitemapUrlsEnabled', i) as boolean;
-	const maxDepth = this.getNodeParameter('maxDepth', i) as number;
-	const maxPages = this.getNodeParameter('maxPages', i) as number;
 
 	const mergedInput: Record<string, any> = {
 		...defaultInput,
 		crawlerType,
-		useSitemaps: sitemapUrlsEnabled,
-		maxCrawlDepth: maxDepth,
-		maxCrawlPages: maxPages,
+		maxCrawlDepth: 1,
+		maxCrawlPages: 1,
 	};
 
 	delete mergedInput.startUrls;
-	if (entries?.entry?.length) {
-		mergedInput.startUrls = entries.entry.map((e) => ({
-			url: e.value,
-			method: 'GET',
-		}));
+	if (startUrl) {
+		mergedInput.startUrls = [
+			{
+				url: startUrl,
+				method: 'GET',
+			},
+		];
 	}
 
 	return mergedInput;
