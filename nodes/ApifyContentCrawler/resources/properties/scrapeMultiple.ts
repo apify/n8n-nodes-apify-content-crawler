@@ -5,9 +5,9 @@ import { ACTOR_ID } from '../../ApifyContentCrawler.node';
 export const name = 'Crawl website';
 
 export const option: INodePropertyOptions = {
-	name: 'Crawl website',
+	name: 'Crawl Website',
 	value: 'Crawl website',
-	action: 'Crawl websites and extract text content to feed AI models, LLM applications, vector databases, or RAG pipelines',
+	action: 'Crawl website',
 	description: 'Crawl multiple starting URLs and extract content',
 };
 

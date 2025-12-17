@@ -7,8 +7,8 @@ export const name = 'Scrape URL';
 export const option: INodePropertyOptions = {
 	name: 'Scrape URL',
 	value: 'Scrape URL',
-	action: 'Scrape a single URL',
-	description: 'Crawl a single starting URL and extract content',
+	action: 'Scrape single URL',
+	description: 'Scrape a single starting URL and extract content',
 };
 
 export const properties: INodeProperties[] = [

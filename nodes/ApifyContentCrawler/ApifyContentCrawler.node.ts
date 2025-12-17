@@ -29,7 +29,7 @@ export class ApifyContentCrawler implements INodeType {
 		description:
 			'Crawl websites and extract text content to feed AI agents, LLM applications, vector databases, or RAG pipelines.',
 		defaults: {
-			name: 'Website Content Crawler by Apify',
+			name: '={{ $parameter["operation"] || "Website Content Crawler by Apify" }}'		
 		},
 		inputs: ['main'] as NodeConnectionType[],
 		outputs: ['main'] as NodeConnectionType[],
