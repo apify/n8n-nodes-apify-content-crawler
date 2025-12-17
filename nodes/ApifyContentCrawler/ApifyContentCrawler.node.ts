@@ -9,8 +9,9 @@ import {
 	NodeConnectionType,
 } from 'n8n-workflow';
 import { router, methods, properties } from './resources/resources';
+import { WEB_CONTENT_SCRAPER_ACTOR_ID } from './helpers/consts';
 
-export const ACTOR_ID = 'aYG0l9s7dbB7j3gbS';
+export const ACTOR_ID = WEB_CONTENT_SCRAPER_ACTOR_ID;
 
 export class ApifyContentCrawler implements INodeType {
 	description: INodeTypeDescription = {

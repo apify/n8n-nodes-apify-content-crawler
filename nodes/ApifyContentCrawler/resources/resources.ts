@@ -101,9 +101,9 @@ export async function router(
 	}
 
 	switch (operation) {
-		case 'Scrape single':
+		case 'Scrape URL':
 			return await executeSingle.call(this, i);
-		case 'Scrape multiple':
+		case 'Crawl website':
 			return await executeMultiple.call(this, i);
 		default:
 			throw new NodeOperationError(

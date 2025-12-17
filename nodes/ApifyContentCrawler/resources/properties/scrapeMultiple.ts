@@ -2,12 +2,12 @@ import { IExecuteFunctions, INodeExecutionData, INodeProperties, INodePropertyOp
 import { executeActorRun } from '../../helpers/genericFunctions';
 import { ACTOR_ID } from '../../ApifyContentCrawler.node';
 
-export const name = 'Scrape multiple';
+export const name = 'Crawl website';
 
 export const option: INodePropertyOptions = {
-	name: 'Scrape Multiple',
-	value: 'Scrape multiple',
-	action: 'Scrape multiple URLs',
+	name: 'Crawl website',
+	value: 'Crawl website',
+	action: 'Crawl websites and extract text content to feed AI models, LLM applications, vector databases, or RAG pipelines',
 	description: 'Crawl multiple starting URLs and extract content',
 };
 
@@ -37,7 +37,7 @@ export const properties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['Website Content Crawler'],
-				operation: ['Scrape multiple'],
+				operation: ['Crawl website'],
 			},
 		},
 	},
@@ -51,7 +51,7 @@ export const properties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['Website Content Crawler'],
-				operation: ['Scrape multiple'],
+				operation: ['Crawl website'],
 			},
 		},
 	},
@@ -79,7 +79,7 @@ export const properties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['Website Content Crawler'],
-				operation: ['Scrape multiple'],
+				operation: ['Crawl website'],
 			},
 		},
 	},
@@ -96,7 +96,7 @@ export const properties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['Website Content Crawler'],
-				operation: ['Scrape multiple'],
+				operation: ['Crawl website'],
 			},
 		},
 	},
@@ -110,7 +110,7 @@ export const properties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['Website Content Crawler'],
-				operation: ['Scrape multiple'],
+				operation: ['Crawl website'],
 			},
 		},
 	},

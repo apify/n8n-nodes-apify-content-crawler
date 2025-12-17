@@ -9,6 +9,7 @@ import {
 	type IHttpRequestOptions,
 } from 'n8n-workflow';
 import { getDefaultBuild, getDefaultInputsFromBuild, runActorApi } from './executeActor';
+import { APIFY_API_URL, TERMINAL_RUN_STATUSES, WAIT_FOR_FINISH_POLL_INTERVAL } from './consts';
 
 type IMethodModule = INodeType['methods'];
 
@@ -30,7 +31,7 @@ export async function apiRequest(
 	const { method = 'GET', qs, uri, ...rest } = requestOptions;
 
 	const query = qs || {};
-	const endpoint = `https://api.apify.com${uri ?? ''}`;
+	const endpoint = `${APIFY_API_URL}${uri ?? ''}`;
 
 	const headers: Record<string, string> = {
 		'x-apify-integration-platform': 'n8n',
@@ -112,13 +113,13 @@ export async function pollRunStatus(
 
 			const status = pollResult?.data?.status;
 			lastRunData = pollResult?.data;
-			if (['SUCCEEDED', 'FAILED', 'TIMED-OUT', 'ABORTED'].includes(status)) break;
+			if (TERMINAL_RUN_STATUSES.includes(status)) break;
 		} catch (err) {
 			throw new NodeApiError(this.getNode(), {
 				message: `Error polling run status: ${err}`,
 			});
 		}
-		await sleep(1000);
+		await sleep(WAIT_FOR_FINISH_POLL_INTERVAL);
 	}
 	return lastRunData;
 }

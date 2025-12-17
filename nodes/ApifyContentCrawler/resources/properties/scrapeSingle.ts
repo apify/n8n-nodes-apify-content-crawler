@@ -2,11 +2,11 @@ import { IExecuteFunctions, INodeExecutionData, INodeProperties, INodePropertyOp
 import { executeActorRun } from '../../helpers/genericFunctions';
 import { ACTOR_ID } from '../../ApifyContentCrawler.node';
 
-export const name = 'Scrape single';
+export const name = 'Scrape URL';
 
 export const option: INodePropertyOptions = {
-	name: 'Scrape Single',
-	value: 'Scrape single',
+	name: 'Scrape URL',
+	value: 'Scrape URL',
 	action: 'Scrape a single URL',
 	description: 'Crawl a single starting URL and extract content',
 };
@@ -23,7 +23,7 @@ export const properties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['Website Content Crawler'],
-				operation: ['Scrape single'],
+				operation: ['Scrape URL'],
 			},
 		},
 	},
@@ -51,7 +51,7 @@ export const properties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['Website Content Crawler'],
-				operation: ['Scrape single'],
+				operation: ['Scrape URL'],
 			},
 		},
 	},

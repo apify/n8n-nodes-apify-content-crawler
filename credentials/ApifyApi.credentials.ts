@@ -1,4 +1,5 @@
 import type { IAuthenticateGeneric, Icon, ICredentialTestRequest, ICredentialType, INodeProperties } from 'n8n-workflow';
+import { APIFY_API_URL } from '../nodes/ApifyContentCrawler/helpers/consts';
 
 export class ApifyApi implements ICredentialType {
 	name = 'apifyApi';
@@ -37,7 +38,7 @@ export class ApifyApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			method: 'GET',
-			url: 'https://api.apify.com/v2/me',
+			url: `${APIFY_API_URL}/v2/me`,
 		},
 	};
 }
