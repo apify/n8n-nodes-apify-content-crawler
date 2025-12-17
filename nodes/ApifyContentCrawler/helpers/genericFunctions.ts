@@ -8,6 +8,7 @@ import {
 	type ILoadOptionsFunctions,
 	type IHttpRequestOptions,
 } from 'n8n-workflow';
+import { getDefaultBuild, getDefaultInputsFromBuild, runActorApi } from './executeActor';
 
 type IMethodModule = INodeType['methods'];
 
@@ -138,63 +139,6 @@ export async function getResults(this: IExecuteFunctions, datasetId: string): Pr
 	return this.helpers.returnJsonArray(results);
 }
 
-/**
- * Extract default inputs from Actor build definition
- */
-export function getDefaultInputsFromBuild(build: any): Record<string, any> {
-	const buildInputProperties = build?.actorDefinition?.input?.properties;
-	const defaultInput: Record<string, any> = {};
-	if (buildInputProperties && typeof buildInputProperties === 'object') {
-		for (const [key, property] of Object.entries(buildInputProperties)) {
-			if (
-				property &&
-				typeof property === 'object' &&
-				'prefill' in property &&
-				(property as any).prefill !== undefined &&
-				(property as any).prefill !== null
-			) {
-				defaultInput[key] = (property as any).prefill;
-			}
-		}
-	}
-	return defaultInput;
-}
-
-/**
- * Get default build for an Actor
- */
-export async function getDefaultBuild(
-	this: IExecuteFunctions,
-	actorId: string,
-): Promise<any> {
-	const defaultBuildResp = await apiRequest.call(this, {
-		method: 'GET',
-		uri: `/v2/acts/${actorId}/builds/default`,
-	});
-	if (!defaultBuildResp?.data) {
-		throw new NodeApiError(this.getNode(), {
-			message: `Could not fetch default build for Actor ${actorId}`,
-		});
-	}
-	return defaultBuildResp.data;
-}
-
-/**
- * Run an Actor via API
- */
-export async function runActorApi(
-	this: IExecuteFunctions,
-	actorId: string,
-	mergedInput: Record<string, any>,
-	qs: Record<string, any>,
-): Promise<any> {
-	return await apiRequest.call(this, {
-		method: 'POST',
-		uri: `/v2/acts/${actorId}/runs`,
-		body: mergedInput,
-		qs,
-	});
-}
 
 /**
  * Execute an Actor run with the given input and wait for results

@@ -606,7 +606,7 @@ export const getBuildResult = () => {
 							title: 'Debug log',
 							type: 'boolean',
 							description:
-								'If enabled, the actor log will include debug messages. Beware that this can be quite verbose.',
+								'If enabled, the Actor log will include debug messages. Beware that this can be quite verbose.',
 							default: false,
 						},
 						saveHtml: {
