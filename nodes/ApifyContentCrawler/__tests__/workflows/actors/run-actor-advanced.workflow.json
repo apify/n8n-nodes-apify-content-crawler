@@ -4,7 +4,7 @@
 		{
 			"parameters": {
 				"resource": "Website Content Crawler",
-				"operation": "Scrape multiple",
+				"operation": "Crawl website",
 				"entries": {
 					"entry": [
 						{
