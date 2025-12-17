@@ -139,7 +139,7 @@ export async function getResults(this: IExecuteFunctions, datasetId: string): Pr
 }
 
 /**
- * Extract default inputs from actor build definition
+ * Extract default inputs from Actor build definition
  */
 export function getDefaultInputsFromBuild(build: any): Record<string, any> {
 	const buildInputProperties = build?.actorDefinition?.input?.properties;
@@ -161,7 +161,7 @@ export function getDefaultInputsFromBuild(build: any): Record<string, any> {
 }
 
 /**
- * Get default build for an actor
+ * Get default build for an Actor
  */
 export async function getDefaultBuild(
 	this: IExecuteFunctions,
@@ -173,14 +173,14 @@ export async function getDefaultBuild(
 	});
 	if (!defaultBuildResp?.data) {
 		throw new NodeApiError(this.getNode(), {
-			message: `Could not fetch default build for actor ${actorId}`,
+			message: `Could not fetch default build for Actor ${actorId}`,
 		});
 	}
 	return defaultBuildResp.data;
 }
 
 /**
- * Run an actor via API
+ * Run an Actor via API
  */
 export async function runActorApi(
 	this: IExecuteFunctions,
@@ -197,7 +197,7 @@ export async function runActorApi(
 }
 
 /**
- * Execute an actor run with the given input and wait for results
+ * Execute an Actor run with the given input and wait for results
  * This is the common execution pattern shared by all operations
  */
 export async function executeActorRun(
@@ -216,7 +216,7 @@ export async function executeActorRun(
 	const run = await runActorApi.call(this, actorId, mergedInput, { waitForFinish: 0 });
 	if (!run?.data?.id) {
 		throw new NodeApiError(this.getNode(), {
-			message: `Run ID not found after running the actor`,
+			message: `Run ID not found after running the Actor`,
 		});
 	}
 
