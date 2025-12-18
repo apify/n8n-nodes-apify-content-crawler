@@ -11,8 +11,6 @@ permissions:
 jobs:
   build_and_release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout code
@@ -25,6 +23,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org/'
           cache: 'npm'
 
       # We need 11.5.1 or higher due to https://docs.npmjs.com/trusted-publishers#configuring-trusted-publishing
