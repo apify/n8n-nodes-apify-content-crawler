@@ -1,4 +1,5 @@
 import {
+	INodeType,
 	NodeApiError,
 	NodeOperationError,
 	sleep,
@@ -7,6 +8,10 @@ import {
 	type ILoadOptionsFunctions,
 	type IHttpRequestOptions,
 } from 'n8n-workflow';
+import { getDefaultBuild, getDefaultInputsFromBuild, runActorApi } from './executeActor';
+import { APIFY_API_URL, TERMINAL_RUN_STATUSES, WAIT_FOR_FINISH_POLL_INTERVAL } from './consts';
+
+type IMethodModule = INodeType['methods'];
 
 /**
  * Extended request options for Apify API calls
@@ -26,7 +31,7 @@ export async function apiRequest(
 	const { method = 'GET', qs, uri, ...rest } = requestOptions;
 
 	const query = qs || {};
-	const endpoint = `https://api.apify.com${uri ?? ''}`;
+	const endpoint = `${APIFY_API_URL}${uri ?? ''}`;
 
 	const headers: Record<string, string> = {
 		'x-apify-integration-platform': 'n8n',
@@ -108,13 +113,13 @@ export async function pollRunStatus(
 
 			const status = pollResult?.data?.status;
 			lastRunData = pollResult?.data;
-			if (['SUCCEEDED', 'FAILED', 'TIMED-OUT', 'ABORTED'].includes(status)) break;
+			if (TERMINAL_RUN_STATUSES.includes(status)) break;
 		} catch (err) {
 			throw new NodeApiError(this.getNode(), {
 				message: `Error polling run status: ${err}`,
 			});
 		}
-		await sleep(1000);
+		await sleep(WAIT_FOR_FINISH_POLL_INTERVAL);
 	}
 	return lastRunData;
 }
@@ -133,4 +138,52 @@ export async function getResults(this: IExecuteFunctions, datasetId: string): Pr
 	}
 
 	return this.helpers.returnJsonArray(results);
+}
+
+
+/**
+ * Execute an Actor run with the given input and wait for results
+ * This is the common execution pattern shared by all operations
+ */
+export async function executeActorRun(
+	this: IExecuteFunctions,
+	actorId: string,
+	actorInput: Record<string, any>,
+): Promise<any> {
+	const build = await getDefaultBuild.call(this, actorId);
+	const defaultInput = getDefaultInputsFromBuild(build);
+
+	const mergedInput = {
+		...defaultInput,
+		...actorInput,
+	};
+
+	const run = await runActorApi.call(this, actorId, mergedInput, { waitForFinish: 0 });
+	if (!run?.data?.id) {
+		throw new NodeApiError(this.getNode(), {
+			message: `Run ID not found after running the Actor`,
+		});
+	}
+
+	const runId = run.data.id;
+	const datasetId = run.data.defaultDatasetId;
+
+	// Wait for Actor run to finish
+	await pollRunStatus.call(this, runId);
+
+	return await getResults.call(this, datasetId);
+}
+
+/**
+ * Merge all methods from all modules into one object
+ * @param modules: IMethodModule[]
+ * @returns methods: INodeType['methods']
+ */
+export function aggregateNodeMethods(modules: IMethodModule[]): INodeType['methods'] {
+	return modules.reduce((methods, module) => {
+		return {
+			...methods,
+			...module,
+		};
+	}, {});
 }

@@ -3,7 +3,8 @@
 	"nodes": [
 		{
 			"parameters": {
-				"operation": "Run Actor Advanced",
+				"resource": "Website Content Crawler",
+				"operation": "Crawl website",
 				"entries": {
 					"entry": [
 						{

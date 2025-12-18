@@ -1,26 +1,17 @@
-import { IExecuteFunctions, INodeProperties } from 'n8n-workflow';
+import { IExecuteFunctions, INodeExecutionData, INodeProperties, INodePropertyOptions } from 'n8n-workflow';
+import { executeActorRun } from '../../helpers/genericFunctions';
+import { ACTOR_ID } from '../../ApifyContentCrawler.node';
 
-const authenticationProperties: INodeProperties[] = [
-	{
-		displayName: 'Authentication',
-		name: 'authentication',
-		type: 'options',
-		options: [
-			{
-				name: 'API Key',
-				value: 'apifyApi',
-			},
-			{
-				name: 'OAuth2',
-				value: 'apifyOAuth2Api',
-			},
-		],
-		default: 'apifyApi',
-		description: 'Choose which authentication method to use',
-	},
-];
+export const name = 'Crawl website';
 
-export const actorProperties: INodeProperties[] = [
+export const option: INodePropertyOptions = {
+	name: 'Crawl Website',
+	value: 'Crawl website',
+	action: 'Crawl website',
+	description: 'Crawl multiple starting URLs and extract content',
+};
+
+export const properties: INodeProperties[] = [
 	{
 		displayName: 'Start URLs',
 		name: 'entries',
@@ -43,6 +34,12 @@ export const actorProperties: INodeProperties[] = [
 				values: [{ displayName: 'Url', name: 'value', type: 'string', default: '' }],
 			},
 		],
+		displayOptions: {
+			show: {
+				resource: ['Website Content Crawler'],
+				operation: ['Crawl website'],
+			},
+		},
 	},
 	{
 		displayName: 'Consider URLs From Sitemaps',
@@ -51,6 +48,12 @@ export const actorProperties: INodeProperties[] = [
 		default: false,
 		description:
 			'Whether the crawler should look for [Sitemaps](https://en.wikipedia.org/wiki/Sitemaps) at the domains of the provided *Start URLs* and enqueue matching URLs similarly to links found on crawled pages. You can also reference a `sitemap.xml` file directly by adding it as another Start URL (e.g., `https://www.example.com/sitemap.xml`). This feature makes the crawling more robust on websites that support Sitemaps, as it includes pages that might not be reachable from Start URLs. Note that if a page is found via a Sitemap, it will have depth 1.',
+		displayOptions: {
+			show: {
+				resource: ['Website Content Crawler'],
+				operation: ['Crawl website'],
+			},
+		},
 	},
 	{
 		displayName: 'Crawler Type',
@@ -73,6 +76,12 @@ export const actorProperties: INodeProperties[] = [
 		],
 		description:
 			'Adaptive switching between browser and raw HTTP (default) - Fast and renders JavaScript content if present. This is the recommended option.\nHeadless web browser with Firefox and Playwright - Useful for modern websites with anti-scraping protections and JavaScript rendering. It recognizes common blocking patterns like CAPTCHAs and automatically retries blocked requests through new sessions.\nRaw HTTP client - High-performance crawling mode that uses raw HTTP requests to fetch the pages. It is faster and cheaper, but it might not work on all websites.',
+		displayOptions: {
+			show: {
+				resource: ['Website Content Crawler'],
+				operation: ['Crawl website'],
+			},
+		},
 	},
 	{
 		displayName: 'Max Crawling Depth',
@@ -84,6 +93,12 @@ export const actorProperties: INodeProperties[] = [
 		},
 		description:
 			'The maximum number of links starting from the start URL that the crawler will recursively follow. The start URLs have depth `0`, the pages linked directly from the start URLs have depth `1`, and so on. This setting is useful to prevent accidental crawler runaway. By setting it to `0`, the Actor will only crawl the Start URLs.',
+		displayOptions: {
+			show: {
+				resource: ['Website Content Crawler'],
+				operation: ['Crawl website'],
+			},
+		},
 	},
 	{
 		displayName: 'Max Pages',
@@ -92,17 +107,16 @@ export const actorProperties: INodeProperties[] = [
 		default: 9999,
 		description:
 			'The maximum number pages to crawl. It includes the start URLs, pagination pages, pages with no content, etc. The crawler will automatically finish after reaching this number. This setting is useful to prevent accidental crawler runaway.',
+		displayOptions: {
+			show: {
+				resource: ['Website Content Crawler'],
+				operation: ['Crawl website'],
+			},
+		},
 	},
 ];
 
-
-export const properties: INodeProperties[] = [...actorProperties, ...authenticationProperties];
-
-export function buildActorInput(
-	this: IExecuteFunctions,
-	i: number,
-	defaultInput: Record<string, any>,
-): Record<string, any> {
+export async function execute(this: IExecuteFunctions, i: number): Promise<INodeExecutionData> {
 	const entries = this.getNodeParameter('entries', i, {}) as {
 		entry?: { value: string }[];
 	};
@@ -111,21 +125,19 @@ export function buildActorInput(
 	const maxDepth = this.getNodeParameter('maxDepth', i) as number;
 	const maxPages = this.getNodeParameter('maxPages', i) as number;
 
-	const mergedInput: Record<string, any> = {
-		...defaultInput,
+	const actorInput: Record<string, any> = {
 		crawlerType,
 		useSitemaps: sitemapUrlsEnabled,
 		maxCrawlDepth: maxDepth,
 		maxCrawlPages: maxPages,
 	};
 
-	delete mergedInput.startUrls;
 	if (entries?.entry?.length) {
-		mergedInput.startUrls = entries.entry.map((e) => ({
+		actorInput.startUrls = entries.entry.map((e) => ({
 			url: e.value,
 			method: 'GET',
 		}));
 	}
 
-	return mergedInput;
+	return await executeActorRun.call(this, ACTOR_ID, actorInput);
 }

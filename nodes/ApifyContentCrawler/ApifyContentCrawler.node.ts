@@ -1,3 +1,6 @@
+ 
+ 
+
 import {
 	IExecuteFunctions,
 	INodeExecutionData,
@@ -5,28 +8,28 @@ import {
 	INodeTypeDescription,
 	NodeConnectionType,
 } from 'n8n-workflow';
-import { properties } from './ApifyContentCrawler.properties';
-import { runActor } from './helpers/executeActor';
+import { router, methods, properties } from './resources/resources';
+import { WEB_CONTENT_SCRAPER_ACTOR_ID } from './helpers/consts';
 
-export const ACTOR_ID = 'aYG0l9s7dbB7j3gbS';
+export const ACTOR_ID = WEB_CONTENT_SCRAPER_ACTOR_ID;
 
 export class ApifyContentCrawler implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Website Content Crawler by Apify',
 		name: 'apifyContentCrawler',
 		icon: {
-			dark: 'file:./apifyDark.svg',
-			light: 'file:./apify.svg'
+			dark: 'file:./logo/apifyDark.svg',
+			light: 'file:./logo/apify.svg',
 		},
 		group: ['transform'],
 		// Mismatched version and defaultVersion as a minor hack to hide "Custom API Call" resource
 		version: [1],
 		defaultVersion: 1,
-		subtitle: 'Run Crawler',
+		subtitle: '={{$parameter["operation"]}}',
 		description:
 			'Crawl websites and extract text content to feed AI agents, LLM applications, vector databases, or RAG pipelines.',
 		defaults: {
-			name: 'Website Content Crawler by Apify',
+			name: '={{ $parameter["operation"] || "Website Content Crawler by Apify" }}'		
 		},
 		inputs: ['main'] as NodeConnectionType[],
 		outputs: ['main'] as NodeConnectionType[],
@@ -57,13 +60,15 @@ export class ApifyContentCrawler implements INodeType {
 		properties,
 	};
 
+	methods = methods;
+
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const data = await runActor.call(this, i);
+				const data = await router.call(this, i);
 
 				const addPairedItem = (item: INodeExecutionData) => ({
 					...item,

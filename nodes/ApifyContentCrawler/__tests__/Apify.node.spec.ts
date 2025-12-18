@@ -3,6 +3,7 @@ import { executeWorkflow } from './utils/executeWorkflow';
 import { CredentialsHelper } from './utils/credentialHelper';
 import { getRunTaskDataByNodeName, getTaskData } from './utils/getNodeResultData';
 import * as fixtures from './utils/fixtures';
+import { APIFY_API_URL } from '../helpers/consts';
 
 describe('Apify Node', () => {
 	let apifyNode: ApifyContentCrawler;
@@ -13,7 +14,7 @@ describe('Apify Node', () => {
 		credentialsHelper = new CredentialsHelper({
 			apifyApi: {
 				apiToken: 'test-token',
-				baseUrl: 'https://api.apify.com',
+				baseUrl: APIFY_API_URL,
 			},
 		});
 	});

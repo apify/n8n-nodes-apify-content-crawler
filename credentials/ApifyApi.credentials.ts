@@ -1,4 +1,5 @@
 import type { IAuthenticateGeneric, Icon, ICredentialTestRequest, ICredentialType, INodeProperties } from 'n8n-workflow';
+import { APIFY_API_URL } from '../nodes/ApifyContentCrawler/helpers/consts';
 
 export class ApifyApi implements ICredentialType {
 	name = 'apifyApi';
@@ -8,8 +9,8 @@ export class ApifyApi implements ICredentialType {
 	documentationUrl = 'https://docs.apify.com/platform/integrations/n8n';
 
 	icon: Icon = {
-		light: 'file:../nodes/ApifyContentCrawler/apify.svg',
-		dark: 'file:../nodes/ApifyContentCrawler/apifyDark.svg',
+		light: 'file:../nodes/ApifyContentCrawler/logo/apify.svg',
+		dark: 'file:../nodes/ApifyContentCrawler/logo/apifyDark.svg',
 	};
 
 	properties: INodeProperties[] = [
@@ -37,7 +38,7 @@ export class ApifyApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			method: 'GET',
-			url: 'https://api.apify.com/v2/me',
+			url: `${APIFY_API_URL}/v2/me`,
 		},
 	};
 }
