@@ -20,6 +20,8 @@ export class ApifyApi implements ICredentialType {
 			type: 'string',
 			typeOptions: { password: true },
 			default: '',
+			description:
+				'Create an API token for n8n in <a href="https://console.apify.com/settings/integrations?createApiToken=true&for=n8n&utm_source=n8n&utm_medium=integrations" target="_blank">Apify Console</a> and copy it right after creating it — it is shown only once.',
 		},
 	];
 
