@@ -128,8 +128,9 @@ throws). Consequences:
 - `n8n-workflow` is a peer dependency only — don't add it to `dependencies`/`devDependencies`.
 - Keep base URLs and Actor IDs in `helpers/consts.ts`.
 - Conventional Commits (`feat:`, `fix:`, `chore:`, `ci:`, `docs:`); PRs target `master`.
-- Never bump the version by hand. Publishing a GitHub Release tagged `vX.Y.Z` triggers
-  `publish.yml`: upgrade to npm ≥11.5.1 (needed for npm trusted publishing), build, test,
+- Never bump the version by hand. Publishing a GitHub Release tagged `vX.Y.Z` makes
+  `release-published.yml` dispatch `publish.yml` on `master` (`npm` environment), which fails
+  unless the tag is already on `master`. It checks out the tag, then: upgrade to npm ≥11.5.1 (needed for npm trusted publishing), build, test,
   `npm version`, a `chore(release): set version to X.Y.Z [skip ci]` commit by Apify Release Bot
   pushed to the release's target branch, then `npm publish --access public` (skipped if that
   version is already on npm).
