@@ -82,7 +82,7 @@ You can use this node in various workflows. It is especially useful for extracti
 1. **Set up a workflow**: Create a new workflow in n8n.
 2. **Add AI Agent node**: Add an AI Agent node to your workflow to process or analyze the extracted content.
 3. **Add Website Content Crawler node**: Insert the node into your workflow and connect it as an AI Agent tool.
-4. **Configure credentials**: Enter your Apify API key or use Apify OAuth flow.
+4. **Configure credentials**: [Create an API token in Apify Console](https://console.apify.com/settings/integrations?createApiToken=true&for=n8n&utm_source=n8n&utm_medium=integrations) and copy it right after creating it (it is shown only once), then enter it as your Apify API key, or use Apify OAuth flow.
 5. **Execute the workflow**: Run the workflow using the chat interface.
 
 ![workflow](./docs/uc.png)
