@@ -73,36 +73,38 @@ jobs:
 
       - name: Extract release version
         id: get_version
+        env:
+          TAG: ${{ inputs.tag }}
         run: |
-          FULL_TAG_NAME="${{ inputs.tag }}"
+          FULL_TAG_NAME="$TAG"
           VERSION_NUMBER="${FULL_TAG_NAME#v}"
           echo "VERSION=${VERSION_NUMBER}" >> $GITHUB_ENV
 
       - name: Update package.json version
         run: |
-          echo "Updating package.json to version ${{ env.VERSION }}"
-          npm version ${{ env.VERSION }} --no-git-tag-version
+          echo "Updating package.json to version $VERSION"
+          npm version "$VERSION" --no-git-tag-version
 
       - name: Commit version update
         run: |
           git add package.json package-lock.json
           if ! git diff --staged --quiet; then
-            TARGET_BRANCH="${{ inputs.target-branch }}"
             echo "Target branch for push: $TARGET_BRANCH"
-            git commit -m "chore(release): set version to ${{ env.VERSION }} [skip ci]"
+            git commit -m "chore(release): set version to $VERSION [skip ci]"
             echo "Pushing version update to branch: $TARGET_BRANCH"
             git push origin HEAD:"refs/heads/$TARGET_BRANCH"
           else
             echo "No changes to commit in package.json or package-lock.json for version update."
           fi
         env:
+          TARGET_BRANCH: ${{ inputs.target-branch }}
           GITHUB_TOKEN: ${{ secrets.APIFY_SERVICE_ACCOUNT_GITHUB_TOKEN }}
 
       - name: Publish to npm
         run: |
-          if npm view @apify/n8n-nodes-apify-content-crawler@${{ env.VERSION }} version > /dev/null 2>&1; then
-            echo "Version ${{ env.VERSION }} of @apify/n8n-nodes-apify-content-crawler is already published to npm. Skipping publish step."
+          if npm view @apify/n8n-nodes-apify-content-crawler@"$VERSION" version > /dev/null 2>&1; then
+            echo "Version $VERSION of @apify/n8n-nodes-apify-content-crawler is already published to npm. Skipping publish step."
           else
-            echo "Publishing @apify/n8n-nodes-apify-content-crawler@${{ env.VERSION }} to npm..."
+            echo "Publishing @apify/n8n-nodes-apify-content-crawler@$VERSION to npm..."
             npm publish --access public
           fi
